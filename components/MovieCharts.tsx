@@ -122,7 +122,7 @@ const MovieCharts = ({ contentData }) => {
         }
     }, []);
 
-    const chartSize = 400;
+    const chartSize = 300;
     const genreChartError = !(contentData && contentData.length > 0);
     const ratingChartError = !(contentData && contentData.length > 0);
     const countryChartError = !(contentData && contentData.length > 0);
