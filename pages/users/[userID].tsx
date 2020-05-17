@@ -56,15 +56,15 @@ const User = (props: any) => {
                     <Head title={`${userID ? `Watcha Profile | ${userID}` : 'Watcha Profile'}`}/>
 
                     {userData && <UserInfo userData={userData}/>}
-                    {contents && <Contents
+                    {contents && contents.movies.action_count.ratings > 0 && <Contents
                         contentType='movie'
                         data={contents.movies}
                         onClickDetail={e => {Router.push({pathname: `/users/${userID}/movies`})}}/>}
-                    {contents && <Contents
+                    {contents && contents.tv_seasons.action_count.ratings > 0 && <Contents
                         contentType='tv'
                         data={contents.tv_seasons}
                         onClickDetail={e => {Router.push({pathname: `/users/${userID}/tv_seasons`})}}/>}
-                    {contents && <Contents
+                    {contents && contents.books.action_count.ratings > 0 && <Contents
                         contentType='book'
                         data={contents.books}
                         onClickDetail={e => {Router.push({pathname: `/users/${userID}/books`})}}/>}

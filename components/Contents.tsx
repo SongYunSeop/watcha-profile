@@ -24,7 +24,7 @@ const Contents = ({contentType, data, onClickDetail}) => {
                 <Content
                 key={content.code.toString()}
                 code={content.code.toString()}
-                imageUrl={content.poster.large}
+                imageUrl={content.poster.medium}
                 title={content.title}
                 author={author}
                 year={content.year.toLocaleString()}

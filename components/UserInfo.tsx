@@ -7,9 +7,9 @@ const UserInfo = ({ userData }) => (
   <Section image>
     {userData && (
       <UserInfoStyles>
-        {userData.photo.original && (
+        {userData.photo.small && (
           <div className="avatar">
-            <img src={userData.photo.original} alt="avatar" />
+            <img src={userData.photo.small} alt="avatar" />
           </div>
         )}
 
