@@ -32,7 +32,7 @@ const StyledContainer = styled.div`
       display: block;
       font-size: 2.3rem;
       font-weight: 500;
-      margin: 4rem;
+      margin: 2rem;
     }
     input {
       background-color: ${colors.offWhite};
