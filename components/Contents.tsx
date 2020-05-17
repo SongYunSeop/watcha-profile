@@ -3,16 +3,35 @@ import PropTypes from 'prop-types';
 import FlipMove from 'react-flip-move';
 import {Section} from '../style';
 import ContentsStyles from './styles/ContentsStyles';
-import Movie from './Movie'
-import TvProgram from "./TvProgram";
-import Book from "./Book";
+import Content from "./Content";
+import DummyContent from "./DummyContent";
 
 const Contents = ({contentType, data, onClickDetail}) => {
-    const sectionTitle = contentType == 'movie'? 'Movies' : contentType == 'tv' ? 'Tv' : 'Book'
+    const sectionTitle = contentType == 'movie' ? 'Movies' : contentType == 'tv' ? 'Tv' : 'Books'
 
-    const renderContent = (content) => {
-        const ContentComponent = contentType == 'movie' ? Movie : contentType == 'tv' ? TvProgram : Book
-        return <ContentComponent {...content} />
+    const renderContent = ({content, user_content_action}) => {
+
+        let author: string
+        if (contentType == 'movie') {
+            author = content.director_names.join(', ')
+        } else if (contentType == 'tv') {
+            author = content.channel_name
+        } else {
+            author = content.author_names.join(', ')
+        }
+        return (
+            <li key={content.code.toString()}>
+                <Content
+                key={content.code.toString()}
+                code={content.code.toString()}
+                imageUrl={content.poster.large}
+                title={content.title}
+                author={author}
+                year={content.year.toLocaleString()}
+                avg_rating={content.ratings_avg.toLocaleString()}
+                user_rating={user_content_action.rating.toLocaleString()}/>
+            </li>
+        )
     }
 
     return (
@@ -21,17 +40,8 @@ const Contents = ({contentType, data, onClickDetail}) => {
                 <header><h2>{sectionTitle}</h2></header>
                 <div className="content-list">
                     <FlipMove typeName="ul">
-                        {data.ratings.result.map(content => renderContent(content))}
-                        <li key={'detail'} onClick={onClickDetail}>
-                            <a className="content">
-                                <div className="content__top">
-                                    <div className="content__name">
-                                        <h3>...more</h3>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-
+                        {data.ratings.result.map(contentData => renderContent(contentData))}
+                        <DummyContent onClick={onClickDetail} title='...more' />
                     </FlipMove>
                 </div>
             </ContentsStyles></Section>
@@ -41,6 +51,8 @@ const Contents = ({contentType, data, onClickDetail}) => {
 
 Contents.propTypes = {
     data: PropTypes.object.isRequired,
-    type: PropTypes.string.isRequired,
+    contentType: PropTypes.string.isRequired,
+    onClickDetail: PropTypes.func.isRequired,
 };
+
 export default Contents

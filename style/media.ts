@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+import {string} from "prop-types";
 
 const sizes = {
   bp900: 900,
@@ -7,7 +8,7 @@ const sizes = {
 };
 
 // iterate through the sizes and create a media template
-export const media = Object.keys(sizes).reduce((accumulator, label) => {
+export const media = Object.keys(sizes).reduce((accumulator: {}, label: string): { [key: string]: any } => {
   // use em in breakpoints to work properly cross-browser and support users
   // changing their browsers font-size: https://zellwk.com/blog/media-query-units/
   const emSize = sizes[label] / 16;

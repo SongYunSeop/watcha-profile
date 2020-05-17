@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {FormEvent, useState} from 'react';
 import Router from 'next/router';
 import { Head } from '../components';
 import styled from 'styled-components';
@@ -68,8 +68,8 @@ const  Home = ()  => {
 
       <StyledContainer>
         <form
-          onSubmit={e => {
-            e.preventDefault()/
+          onSubmit={(e: FormEvent<HTMLFormElement>) => {
+            e.preventDefault()
             Router.push({
               pathname: `/users/${userID.replace("https://watcha.com/ko-KR/users/", "")}`,
             });

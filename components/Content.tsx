@@ -1,30 +1,28 @@
 import React from "react";
 
-const Book = ({content, user_content_action}) => (
-    <li key={content.code}>
+const Book = ({code, imageUrl, title, author, year, avg_rating, user_rating }) => (
         <a
-            href={`https://watcha.com/ko-KR/contents/${content.code}`}
+            href={`https://watcha.com/ko-KR/contents/${code}`}
             target="_blank"
             rel="noopener noreferrer"
             className="content">
             <div className="movie__poster">
-                <img src={content.poster.large}/>
+                <img src={imageUrl} alt={`${title} Poster`}/>
             </div>
             <div className="content__top">
                 <div className="content__name">
-                    <h3>{content.title}</h3>
+                    <h3>{title}</h3>
                 </div>
             </div>
             <div className="content__stats">
                 <div className="content__stats--left">
-                    <span>{content.author_names.join(', ')}</span>
-                    <span>{content.year.toLocaleString()}</span>
+                    <span>{author}</span>
+                    <span>{year}</span>
                 </div>
                 <div className="content__stats--right">
-                    <span>{user_content_action.rating.toLocaleString()} / {content.ratings_avg.toLocaleString()}</span>
+                    <span>{user_rating} / {avg_rating}</span>
                 </div>
             </div>
         </a>
-    </li>
 )
 export default Book;

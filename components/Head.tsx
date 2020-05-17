@@ -16,7 +16,7 @@ const Head = props => (
     <link rel="apple-touch-icon" sizes="120x120" href="/static/favicons/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png" />
-    <link rel="manifest" href="/static/favicons/site.webmanifest" />
+    <link rel="manifest" href="/static/favicons/manifest.json" />
     <link rel="mask-icon" href="/static/favicons/safari-pinned-tab.svg" color="#1A1E22" />
     <meta name="msapplication-TileColor" content="#1A1E22" />
     <meta name="theme-color" content="#0070f3" />
