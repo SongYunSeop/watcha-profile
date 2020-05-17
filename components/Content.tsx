@@ -1,4 +1,8 @@
 import React from "react";
+import StarIcon from '@material-ui/icons/Star';
+import PeopleIcon from '@material-ui/icons/People';
+import { theme } from '../style';
+const { colors } = theme;
 
 const Content = ({code, imageUrl, title, author, year, avg_rating, user_rating }) => (
         <a
@@ -20,7 +24,7 @@ const Content = ({code, imageUrl, title, author, year, avg_rating, user_rating }
                     <span>{year}</span>
                 </div>
                 <div className="content__stats--right">
-                    <span>{user_rating} / {avg_rating}</span>
+                    <StarIcon style={{color: colors.yellow}}/><span>{user_rating} / {avg_rating}</span>
                 </div>
             </div>
         </a>

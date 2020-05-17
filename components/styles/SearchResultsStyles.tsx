@@ -37,7 +37,7 @@ const SearchResultsStyles = styled.div`
         &__ratings {
           float: right;
           svg {
-            color: rgb(255, 222, 54);
+            color: ${colors.yellow};
             float: left;
           }
           span {
