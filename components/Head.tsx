@@ -3,8 +3,8 @@ import NextHead from 'next/head';
 
 const defaultTitle: string = 'Watcha Profile';
 const defaultDescription: string = 'A nicer look at your Watcha profile!';
-const defaultOGURL: string = 'https://watcha-profile.songyunseop.now.sh';
-const defaultOGImage: string = 'https://watcha-profile.songyunseop.now.sh/static/og.png';
+const defaultOGURL: string = 'https://watcha-profile.now.sh';
+const defaultOGImage: string = 'https://watcha-profile.now.sh/static/og.png';
 
 const Head = props => (
   <NextHead>
