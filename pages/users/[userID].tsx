@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import Router from 'next/router'
 import PropTypes from 'prop-types';
 import {Error, Head, UserInfo, Footer} from '../../components';
 import Contents from "../../components/Contents";
@@ -58,8 +59,7 @@ const User = (props: any) => {
                     {contents && <Contents
                         contentType='movie'
                         data={contents.movies}
-                        // onClickDetail={e => {Router.push({pathname: `/users/${userID}/movies`})}}/>}
-                        onClickDetail={e => {alert('Open Soon! 👨‍💻🔥')}}/>}
+                        onClickDetail={e => {Router.push({pathname: `/users/${userID}/movies`})}}/>}
                     {contents && <Contents
                         contentType='tv'
                         data={contents.tv_seasons}
