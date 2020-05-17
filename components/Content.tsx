@@ -1,6 +1,6 @@
 import React from "react";
 
-const Book = ({code, imageUrl, title, author, year, avg_rating, user_rating }) => (
+const Content = ({code, imageUrl, title, author, year, avg_rating, user_rating }) => (
         <a
             href={`https://watcha.com/ko-KR/contents/${code}`}
             target="_blank"
@@ -25,4 +25,4 @@ const Book = ({code, imageUrl, title, author, year, avg_rating, user_rating }) =
             </div>
         </a>
 )
-export default Book;
+export default Content;

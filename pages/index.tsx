@@ -1,9 +1,11 @@
-import React, {FormEvent, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Router from 'next/router';
-import { Head } from '../components';
+import {Head} from '../components';
 import styled from 'styled-components';
-import { theme, mixins } from '../style';
-const { colors, fonts } = theme;
+import {theme, mixins} from '../style';
+import SearchResults from "../components/SearchResults";
+
+const {colors, fonts} = theme;
 
 const StyledContainer = styled.div`
   ${mixins.flexCenter};
@@ -11,10 +13,7 @@ const StyledContainer = styled.div`
   background-size: cover;
   background-position-x: center;
   background-position-y: center;
-
   
-  // background-color: ${colors.black};
-  // background-image: linear-gradient(${colors.black} 0%, ${colors.darkGrey} 100%);
   color: ${colors.offWhite};
   height: 100vh;
 
@@ -58,28 +57,72 @@ const StyledContainer = styled.div`
   }
 `;
 
-const  Home = ()  => {
-  const [userID, setUsername] = useState('');
-  const handleChange = e => setUsername(e.target.value);
+const Home = () => {
+    const [query, setQuery] = useState('');
+    const [searchPage, setSearchPage] = useState(1);
+    const [searchResults, setSearchResults] = useState([]);
+    const [error, setError] = useState({active: false, type: 200});
+    const handleChange = e => {
+        const query = e.target.value
+        setQuery(query);
+    }
+    const onSelectUser = (code) => {
+        Router.push({
+            pathname: `/users/${code}`,
+        });
+    }
 
-  return (
-    <main>
-      <Head title="Watcha Profile" />
-
-      <StyledContainer>
-        <form
-          onSubmit={(e: FormEvent<HTMLFormElement>) => {
-            e.preventDefault()
-            Router.push({
-              pathname: `/users/${userID.replace("https://watcha.com/ko-KR/users/", "")}`,
+    const search = () => {
+        fetch(`/api/search?query=${query}&page=${searchPage}`)
+            .then(response => {
+                if (response.status === 404) {
+                    return setError({active: true, type: 404});
+                }
+                return response.json();
+            })
+            .then(json => {
+                if (searchPage == 1)
+                    setSearchResults(json.result)
+                else
+                    setSearchResults(searchResults.concat(json.result))
+            })
+            .catch(error => {
+                setError({active: true, type: 400});
+                console.error('Error:', error);
             });
-          }}>
-          <label htmlFor="username">Make Your Watcha Profile</label>
-          <input name="username" type="text" onChange={handleChange} placeholder={'"nb4xk0MPaqOAz" or "https://watcha.com/ko-KR/users/nb4xk0MPaqOAz"'}/>
-        </form>
-      </StyledContainer>
-    </main>
-  )
+
+    }
+
+    const onClickMore = (e) => {
+        setSearchPage(searchPage+1)
+    }
+
+    useEffect(() => {
+        if (query == "") {
+            setSearchPage(1)
+            setSearchResults([])
+        } else {
+            search();
+        }
+    }, [query, searchPage])
+
+    return (
+        <main>
+            <Head title="Watcha Profile"/>
+            <StyledContainer>
+                <form onSubmit={e => {e.preventDefault()}}>
+                    <label htmlFor="username">Make Your Watcha Profile</label>
+                    <input name="search" type="text" onChange={handleChange}
+                           placeholder={'이동진 평론가 or 송윤섭 or Your Name!'}/>
+                    {searchResults.length > 0 && (
+                        <SearchResults
+                            searchResults={searchResults}
+                            onClickItem={onSelectUser}
+                            onClickMore={onClickMore} />)}
+                </form>
+            </StyledContainer>
+        </main>
+    )
 }
 
 export default Home;

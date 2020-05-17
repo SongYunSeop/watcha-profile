@@ -9,7 +9,7 @@ const UserInfo = ({ userData }) => (
       <UserInfoStyles>
         {userData.photo.small && (
           <div className="avatar">
-            <img src={userData.photo.small} alt="avatar" />
+            <img src={userData.photo.large} alt="avatar" />
           </div>
         )}
 
