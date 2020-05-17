@@ -28,6 +28,7 @@ class _App extends App {
                     <Corner/>
                     <Component {...pageProps} />
                 </>
+                <script type="text/javascript"  src="/static/js/airbridge.js" />
             </ThemeProvider>
         );
     }
