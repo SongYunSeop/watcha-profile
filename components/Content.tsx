@@ -1,6 +1,7 @@
 import React from "react";
 import StarIcon from '@material-ui/icons/Star';
 import PeopleIcon from '@material-ui/icons/People';
+import Rating from '@material-ui/lab/Rating';
 import { theme } from '../style';
 const { colors } = theme;
 
@@ -14,17 +15,18 @@ const Content = ({code, imageUrl, title, author, year, avg_rating, user_rating }
                 <img src={imageUrl} alt={`${title} Poster`}/>
             </div>
             <div className="content__top">
-                <div className="content__name">
-                    <h3>{title}</h3>
-                </div>
+                <span className="content__top__title">{title}</span>
+                <span className="content__top__year">{year}</span>
             </div>
-            <div className="content__stats">
-                <div className="content__stats--left">
-                    <span>{author}</span>
-                    <span>{year}</span>
+            <div className="content__info">
+                <span className="content__info__author">{author}</span>
+            </div>
+            <div className="content__ratings">
+                <div className="content__ratings__line">
+                   <span>User({user_rating})</span>  <Rating name="half-rating" defaultValue={user_rating} precision={0.1} readOnly style={{color: colors.yellow}} />
                 </div>
-                <div className="content__stats--right">
-                    <StarIcon style={{color: colors.yellow}}/><span>{user_rating} / {avg_rating}</span>
+                <div className="content__ratings__line">
+                    <span>Avg({avg_rating})</span> <Rating name="half-rating" defaultValue={avg_rating} precision={0.1} readOnly style={{color: colors.yellow}} />
                 </div>
             </div>
         </a>

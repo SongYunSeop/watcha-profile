@@ -28,8 +28,8 @@ const Contents = ({contentType, data, onClickDetail}) => {
                 title={content.title}
                 author={author}
                 year={content.year.toLocaleString()}
-                avg_rating={content.ratings_avg.toLocaleString()}
-                user_rating={user_content_action.rating.toLocaleString()}/>
+                avg_rating={(content.ratings_avg / 2).toLocaleString()}
+                user_rating={(user_content_action.rating / 2).toLocaleString()}/>
             </li>
         )
     }

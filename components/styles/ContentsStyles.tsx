@@ -69,45 +69,51 @@ const ContentsStyles = styled.div`
           &__name {
             display: flex;
             align-items: center;
-            svg {
-              margin-right: 0.5rem;
-              min-width: 16px;
-            }
             h3 {
-              margin: 0;
+                margin: 0;
+                font-weight: 700;
+                line-height: 34px;
             }
           }
 
           &__top {
             ${mixins.flexBetween};
-            font-size: 13px;
-           }
-           
-          &__stats {
+            line-height: 34px;
+            
+            &__title {
+                font-weight: 900;
+                max-width: 150px;
+                ${mixins.ellipsis}
+            }
+            
+            &__year {
+                font-size: 14px;
+            }
+          }
+          
+          &__info {
             ${mixins.flexBetween};
             font-size: 13px;
             color: ${colors.grey};
-
-            &--left {
-              flex-grow: 1;
-              display: flex;
-
-              span {
-                display: flex;
-                align-items: center;
-                margin-right: 0.75rem;
-                svg {
-                  margin-right: 0.25rem;
-                }
-                .language {
-                  border-radius: 100%;
-                  width: 10px;
-                  height: 10px;
-                  background-color: blue;
-                  margin-right: 0.25rem;
-                }
-              }
+            
+            &__author {
+                font-weight: 700
             }
+          }
+          
+           
+          &__ratings {
+            font-size: 12px;
+            font-weight: 700;
+            color: ${colors.black};
+            
+            
+            svg {
+            }
+            
+            &__line {
+            }
+
           }
         }
       }
