@@ -12,7 +12,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             })
             return data
         }, Promise.resolve())
-    }).then(result => {
-        res.json({result})
+    }).then((result: Array<Object>)  => {
+        const sortedResult = result.sort((x, y) => {
+            return y["user_content_action"].rating - x["user_content_action"].rating;
+        })
+        res.json({result: sortedResult})
     })
 }

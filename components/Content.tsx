@@ -1,6 +1,4 @@
 import React from "react";
-import StarIcon from '@material-ui/icons/Star';
-import PeopleIcon from '@material-ui/icons/People';
 import Rating from '@material-ui/lab/Rating';
 import { theme } from '../style';
 const { colors } = theme;

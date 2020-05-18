@@ -46,7 +46,7 @@ const TvSeasons = (props: any) => {
 
     const renderTvSeasons = () => {
         const pageSize = 9
-        let pageIndex = page * pageSize
+        const pageIndex = page * pageSize
         return tvSeasons
             .slice(0, pageIndex)
             .map(({content, user_content_action}) => (

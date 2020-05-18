@@ -46,7 +46,7 @@ const Movies = (props: any) => {
 
     const renderMovies = () => {
         const pageSize = 9
-        let pageIndex = page * pageSize
+        const pageIndex = page * pageSize
         return movies
             .slice(0, pageIndex)
             .map(({content, user_content_action}) => (

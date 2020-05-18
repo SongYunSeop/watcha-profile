@@ -46,7 +46,7 @@ const Books = (props: any) => {
 
     const renderBooks = () => {
         const pageSize = 9
-        let pageIndex = page * pageSize
+        const pageIndex = page * pageSize
         return books
             .slice(0, pageIndex)
             .map(({content, user_content_action}) => (
