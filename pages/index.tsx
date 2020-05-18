@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Router from 'next/router';
 import {Head} from '../components';
 import styled from 'styled-components';
-import {theme, mixins} from '../style';
+import {mixins, theme} from '../style';
 import SearchResults from "../components/SearchResults";
+import _ from 'lodash'
 
 const {colors, fonts} = theme;
 
@@ -62,10 +63,7 @@ const Home = () => {
     const [searchPage, setSearchPage] = useState(1);
     const [searchResults, setSearchResults] = useState([]);
     const [error, setError] = useState({active: false, type: 200});
-    const handleChange = e => {
-        const query = e.target.value
-        setQuery(query);
-    }
+
     const onSelectUser = (code) => {
         Router.push({
             pathname: `/users/${code}`,
@@ -90,11 +88,18 @@ const Home = () => {
                 setError({active: true, type: 400});
                 console.error('Error:', error);
             });
+    }
 
+    const handleDebounceInput = useCallback(_.debounce((value: string) => {
+        setQuery(value);
+    }, 500), []);
+
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        handleDebounceInput(e.target.value);
     }
 
     const onClickMore = (e) => {
-        setSearchPage(searchPage+1)
+        setSearchPage(searchPage + 1)
     }
 
     useEffect(() => {
@@ -110,15 +115,17 @@ const Home = () => {
         <main>
             <Head title="Watcha Profile"/>
             <StyledContainer>
-                <form onSubmit={e => {e.preventDefault()}}>
+                <form onSubmit={e => {
+                    e.preventDefault()
+                }}>
                     <label htmlFor="username">Make Your Watcha Profile</label>
-                    <input name="search" type="text" onChange={handleChange}
+                    <input name="search" type="text" onChange={handleSearch}
                            placeholder={'이동진 평론가 or 송윤섭 or Your Name!'}/>
-                    {searchResults.length > 0 && (
+                    {(query != "" && searchResults.length > 0) && (
                         <SearchResults
                             searchResults={searchResults}
                             onClickItem={onSelectUser}
-                            onClickMore={onClickMore} />)}
+                            onClickMore={onClickMore}/>)}
                 </form>
             </StyledContainer>
         </main>
