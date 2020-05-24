@@ -1,14 +1,23 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Router from 'next/router'
 import PropTypes from 'prop-types';
 import {Error, Head, UserInfo, Footer} from '../../components';
 import Contents from "../../components/Contents";
 import users from '../../libs/watcha/users'
 import contents from '../../libs/watcha/contents'
+import AirbridgeWrapper from "../../libs/airbridge";
 
 const User = ({query, userData, movies, tv_seasons, books}) => {
     const userID = query.userID.toString();
     const [error, setError] = useState({active: false, type: 200});
+
+    useEffect(() => {
+        AirbridgeWrapper.getInstance().sendEvent("View", {
+            action: "Users",
+            label: userID,
+            customAttributes: {userName: userData.name}
+        })
+    }, [userID])
 
     return (
         <main>

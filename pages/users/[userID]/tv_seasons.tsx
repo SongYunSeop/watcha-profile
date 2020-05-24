@@ -7,6 +7,7 @@ import DummyContent from "../../../components/DummyContent";
 import Content from "../../../components/Content";
 import TvCharts from "../../../components/TvCharts";
 import users from "../../../libs/watcha/users";
+import AirbridgeWrapper from "../../../libs/airbridge";
 
 const TvSeasons = ({query, userData}) => {
     const userID = query.userID.toString();
@@ -50,7 +51,13 @@ const TvSeasons = ({query, userData}) => {
 
     useEffect(() => {
         getTvSeasons();
-    }, []);
+        AirbridgeWrapper.getInstance().sendEvent("View", {
+            action: "TvSeasons",
+            label: userID,
+            customAttributes: {userName: userData.name}
+        })
+
+    }, [userID]);
 
     return (
         <main>

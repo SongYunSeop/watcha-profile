@@ -7,6 +7,7 @@ import DummyContent from "../../../components/DummyContent";
 import Content from "../../../components/Content";
 import MovieCharts from "../../../components/MovieCharts";
 import users from "../../../libs/watcha/users";
+import AirbridgeWrapper from "../../../libs/airbridge";
 
 const Movies = ({query, userData}) => {
     const userID = query.userID.toString();
@@ -50,7 +51,13 @@ const Movies = ({query, userData}) => {
 
     useEffect(() => {
         getMovies();
-    }, []);
+        AirbridgeWrapper.getInstance().sendEvent("View", {
+            action: "Movies",
+            label: userID,
+            customAttributes: {userName: userData.name}
+        })
+
+    }, [userID]);
 
     return (
         <main>

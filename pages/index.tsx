@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import {theme} from '../style';
 import SearchResults from "../components/SearchResults";
 import _ from 'lodash'
+import AirbridgeWrapper from "../libs/airbridge";
 
 const {colors, fonts} = theme;
 
@@ -60,12 +61,14 @@ const Home = () => {
     const [error, setError] = useState({active: false, type: 200});
 
     const onSelectUser = (code) => {
+        AirbridgeWrapper.getInstance().sendEvent("SelectUser", {action: code})
         Router.push({
             pathname: `/users/${code}`,
         });
     }
 
     const search = () => {
+        AirbridgeWrapper.getInstance().sendEvent("SearchUser", {action: query})
         fetch(`/api/search?query=${query}&page=${searchPage}`)
             .then(response => {
                 if (response.status === 404) {

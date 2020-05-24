@@ -1,4 +1,3 @@
-import {Section} from '../style';
 import SearchResultsStyles from "./styles/SearchResultsStyles";
 import React from "react";
 import FlipMove from 'react-flip-move';

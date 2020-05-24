@@ -7,6 +7,7 @@ import DummyContent from "../../../components/DummyContent";
 import Content from "../../../components/Content";
 import BookCharts from "../../../components/BookCharts";
 import users from "../../../libs/watcha/users";
+import AirbridgeWrapper from "../../../libs/airbridge";
 
 const Books = ({query, userData}) => {
     const userID = query.userID.toString();
@@ -50,7 +51,12 @@ const Books = ({query, userData}) => {
 
     useEffect(() => {
         getBooks();
-    }, []);
+        AirbridgeWrapper.getInstance().sendEvent("View", {
+            action: "Books",
+            label: userID,
+            customAttributes: {userName: userData.name}
+        })
+    }, [userID]);
 
     return (
         <main>
