@@ -56,7 +56,7 @@ const TvSeasons = (props: any) => {
                         imageUrl={content.poster.large}
                         title={content.title}
                         author={content.channel_name}
-                        year={content.year.toLocaleString()}
+                        year={content.year.toString()}
                         avg_rating={(content.ratings_avg / 2).toLocaleString()}
                         user_rating={(user_content_action.rating / 2).toLocaleString()}/>
                 </li>

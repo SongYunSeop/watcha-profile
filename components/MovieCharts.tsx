@@ -67,7 +67,7 @@ const MovieCharts = ({ contentData }) => {
         const ctx = document.getElementById('ratingChart');
         const mostStarredRepos = contentData
             .sort((a, b) => b.user_content_action.rating - a.user_content_action.rating)
-        const labels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        const labels = [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]
         let data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         mostStarredRepos.map(repo => data[repo.user_content_action.rating-1] += 1);
 

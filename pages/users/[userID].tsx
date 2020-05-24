@@ -59,16 +59,22 @@ const User = (props: any) => {
                     {contents && contents.movies.action_count.ratings > 0 && <Contents
                         contentType='movie'
                         data={contents.movies}
-                        onClickDetail={e => {Router.push({pathname: `/users/${userID}/movies`})}}/>}
+                        onClickDetail={e => {
+                            Router.push({pathname: `/users/${userID}/movies`})
+                        }}/>}
                     {contents && contents.tv_seasons.action_count.ratings > 0 && <Contents
                         contentType='tv'
                         data={contents.tv_seasons}
-                        onClickDetail={e => {Router.push({pathname: `/users/${userID}/tv_seasons`})}}/>}
+                        onClickDetail={e => {
+                            Router.push({pathname: `/users/${userID}/tv_seasons`})
+                        }}/>}
                     {contents && contents.books.action_count.ratings > 0 && <Contents
                         contentType='book'
                         data={contents.books}
-                        onClickDetail={e => {Router.push({pathname: `/users/${userID}/books`})}}/>}
-                        <Footer />
+                        onClickDetail={e => {
+                            Router.push({pathname: `/users/${userID}/books`})
+                        }}/>}
+                    <Footer/>
                 </>
             )}
         </main>

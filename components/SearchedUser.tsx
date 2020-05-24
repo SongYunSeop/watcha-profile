@@ -10,7 +10,7 @@ const SearchedUser = ({code, imageUrl, name, bio, ratings_count }) => (
                     <span className="searchedUser__info__name">{name}</span>
                     <span className="searchedUser__info__ratings"><StarIcon/><span>{ratings_count}</span></span>
                 </div>
-                <div><span className="searchedUser__info__bio">{bio}</span></div>
+                <div className="searchedUser__info__bio">{bio}</div>
             </div>
         </div>
 )

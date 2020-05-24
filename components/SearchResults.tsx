@@ -11,7 +11,7 @@ const SearchResults = ({searchResults, onClickItem, onClickMore}) => {
             <li key={user.code.toString} onClick={e=> {onClickItem(user.code)}}>
                 <SearchedUser
                     code={user.code}
-                    imageUrl={user.photo.large}
+                    imageUrl={user.photo.small}
                     name={user.name}
                     bio={user.bio}
                     ratings_count={user.ratings_count}

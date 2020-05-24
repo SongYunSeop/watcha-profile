@@ -58,9 +58,6 @@ const ContentsStyles = styled.div`
             font-size: 14px;
             margin-bottom: 2rem;
           }
-          .movie__poster {
-              width: 200px;
-          }
 
           &__header {
             margin-bottom: 2rem;
