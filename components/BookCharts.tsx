@@ -87,20 +87,20 @@ const BookCharts = ({contentData}) => {
         const ctx = document.getElementById('countryChart');
         const sample = contentData
             .reduce((x, {content, user_content_action}) => {
-                return x.concat(content.nations)
+                return x.concat(content.author_names)
             }, [])
-            .reduce((x, country) => {
-                if (x.hasOwnProperty(country.name)) {
-                    x[country.name] += 1
+            .reduce((x, author) => {
+                if (x.hasOwnProperty(author)) {
+                    x[author] += 1
                 } else {
-                    x[country.name] = 1
+                    x[author] = 1
                 }
                 return x
             }, {})
         const agg = Object.keys(sample)
             .map((key) => ({label: key, value: sample[key]}))
             .sort((x, y) => (y["value"] - x["value"]))
-            .slice(0, 5)
+            .slice(0, 10)
         const labels = agg.map(repo => repo.label);
         const data = agg.map(repo => repo.value);
 
@@ -146,7 +146,7 @@ const BookCharts = ({contentData}) => {
                 </div>
 
                 <div className="chart">
-                    <header><h2>Conutry</h2></header>
+                    <header><h2>Author</h2></header>
                     <div className="chart-container">
                         {countryChartError && <p>Nothing to see here!</p>}
                         <canvas id="countryChart" width={chartSize} height={chartSize}/>
