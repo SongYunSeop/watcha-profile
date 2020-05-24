@@ -1,51 +1,23 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Router from 'next/router'
 import PropTypes from 'prop-types';
 import {Error, Head, UserInfo, Footer} from '../../components';
 import Contents from "../../components/Contents";
+import users from '../../libs/watcha/users'
+import contents from '../../libs/watcha/contents'
+import AirbridgeWrapper from "../../libs/airbridge";
 
-const User = (props: any) => {
-    const userID = props.query.userID.toString();
-    const [userData, setUserData] = useState(null);
-    const [contents, setContents] = useState(null);
+const User = ({query, userData, movies, tv_seasons, books}) => {
+    const userID = query.userID.toString();
     const [error, setError] = useState({active: false, type: 200});
 
-    const getUserData = () => {
-        fetch(`/api/users/${userID}`)
-            .then(response => {
-                if (response.status === 404) {
-                    return setError({active: true, type: 404});
-                }
-                return response.json();
-            })
-            .then(json => setUserData(json))
-            .catch(error => {
-                setError({active: true, type: 400});
-                console.error('Error:', error);
-            });
-    };
-
-    const getContents = () => {
-        fetch(`/api/users/${userID}/contents`)
-            .then(response => {
-                if (response.status === 404) {
-                    return setError({active: true, type: 404});
-                }
-                return response.json();
-            })
-            .then(json => setContents(json))
-            .catch(error => {
-                setError({active: true, type: 400});
-                console.error('Error:', error);
-            });
-
-    }
-
-
     useEffect(() => {
-        getUserData();
-        getContents();
-    }, []);
+        AirbridgeWrapper.getInstance().sendEvent("View", {
+            action: "Users",
+            label: userID,
+            customAttributes: {userName: userData.name}
+        })
+    }, [userID])
 
     return (
         <main>
@@ -56,19 +28,25 @@ const User = (props: any) => {
                     <Head title={`${userID ? `Watcha Profile | ${userID}` : 'Watcha Profile'}`}/>
 
                     {userData && <UserInfo userData={userData}/>}
-                    {contents && contents.movies.action_count.ratings > 0 && <Contents
+                    {movies && movies.action_count.ratings > 0 && <Contents
                         contentType='movie'
-                        data={contents.movies}
-                        onClickDetail={e => {Router.push({pathname: `/users/${userID}/movies`})}}/>}
-                    {contents && contents.tv_seasons.action_count.ratings > 0 && <Contents
+                        data={movies}
+                        onClickDetail={e => {
+                            Router.push({pathname: `/users/${userID}/movies`})
+                        }}/>}
+                    {tv_seasons && tv_seasons.action_count.ratings > 0 && <Contents
                         contentType='tv'
-                        data={contents.tv_seasons}
-                        onClickDetail={e => {Router.push({pathname: `/users/${userID}/tv_seasons`})}}/>}
-                    {contents && contents.books.action_count.ratings > 0 && <Contents
+                        data={tv_seasons}
+                        onClickDetail={e => {
+                            Router.push({pathname: `/users/${userID}/tv_seasons`})
+                        }}/>}
+                    {books && books.action_count.ratings > 0 && <Contents
                         contentType='book'
-                        data={contents.books}
-                        onClickDetail={e => {Router.push({pathname: `/users/${userID}/books`})}}/>}
-                        <Footer />
+                        data={books}
+                        onClickDetail={e => {
+                            Router.push({pathname: `/users/${userID}/books`})
+                        }}/>}
+                    <Footer/>
                 </>
             )}
         </main>
@@ -80,3 +58,13 @@ User.propTypes = {
 };
 
 export default User;
+
+User.getInitialProps = async (props) => {
+    const query = props.query
+    const userID = props.query.userID.toString();
+    const userData = await users(userID).then(res => res.json()).then(json => json.result)
+    const movies = await contents.movies(userID).then(res => res.json()).then(json => json.result)
+    const tv_seasons = await contents.tv_seasons(userID).then(res => res.json()).then(json => json.result)
+    const books = await contents.books(userID).then(res => res.json()).then(json => json.result)
+    return {query, userData, movies, tv_seasons, books}
+}

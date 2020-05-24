@@ -2,14 +2,14 @@ import React, {useCallback, useEffect, useState} from 'react';
 import Router from 'next/router';
 import {Head} from '../components';
 import styled from 'styled-components';
-import {mixins, theme} from '../style';
+import {theme} from '../style';
 import SearchResults from "../components/SearchResults";
 import _ from 'lodash'
+import AirbridgeWrapper from "../libs/airbridge";
 
 const {colors, fonts} = theme;
 
 const StyledContainer = styled.div`
-  ${mixins.flexCenter};
   background-image: url("/static/background.jpg");
   background-size: cover;
   background-position-x: center;
@@ -17,8 +17,10 @@ const StyledContainer = styled.div`
   
   color: ${colors.offWhite};
   height: 100vh;
+  padding-top: 17vh;
 
   form {
+    margin: 0 auto;
     background-color: transparent;
     border-radius: 5px;
     padding: 2rem;
@@ -32,7 +34,7 @@ const StyledContainer = styled.div`
       display: block;
       font-size: 2.3rem;
       font-weight: 500;
-      margin: 2rem;
+      margin: 1.5rem;
     }
     input {
       background-color: ${colors.offWhite};
@@ -49,12 +51,6 @@ const StyledContainer = styled.div`
       font-weight: 300;
       text-align: center;
     }
-
-    .submit {
-      ${mixins.blueButton};
-      margin-top: 3rem;
-      filter: none;
-    }
   }
 `;
 
@@ -65,12 +61,14 @@ const Home = () => {
     const [error, setError] = useState({active: false, type: 200});
 
     const onSelectUser = (code) => {
+        AirbridgeWrapper.getInstance().sendEvent("SelectUser", {action: code})
         Router.push({
             pathname: `/users/${code}`,
         });
     }
 
     const search = () => {
+        AirbridgeWrapper.getInstance().sendEvent("SearchUser", {action: query})
         fetch(`/api/search?query=${query}&page=${searchPage}`)
             .then(response => {
                 if (response.status === 404) {

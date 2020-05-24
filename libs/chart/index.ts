@@ -1,6 +1,7 @@
 import Chart from 'chart.js';
-import { theme } from '../../style';
-const { fonts } = theme;
+import {theme} from '../../style';
+
+const {fonts} = theme;
 
 const buildScales = axes => {
     const scales = {
@@ -37,7 +38,7 @@ const buildLegend = legend => {
 };
 
 const buildChart = config => {
-    const { ctx, chartType, labels, data, backgroundColor, borderColor, axes, legend } = config;
+    const {ctx, chartType, labels, data, backgroundColor, borderColor, axes, legend} = config;
 
     return new Chart(ctx, {
         type: chartType,

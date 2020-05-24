@@ -1,4 +1,3 @@
-import { Section } from '../style';
 import SearchResultsStyles from "./styles/SearchResultsStyles";
 import React from "react";
 import FlipMove from 'react-flip-move';
@@ -8,10 +7,12 @@ const SearchResults = ({searchResults, onClickItem, onClickMore}) => {
 
     const renderSearchedUser = (user) => {
         return (
-            <li key={user.code.toString} onClick={e=> {onClickItem(user.code)}}>
+            <li key={user.code.toString} onClick={e => {
+                onClickItem(user.code)
+            }}>
                 <SearchedUser
                     code={user.code}
-                    imageUrl={user.photo.large}
+                    imageUrl={user.photo.small}
                     name={user.name}
                     bio={user.bio}
                     ratings_count={user.ratings_count}
@@ -28,7 +29,7 @@ const SearchResults = ({searchResults, onClickItem, onClickMore}) => {
                         <FlipMove typeName="ul">
                             {searchResults.map(user => renderSearchedUser(user))}
                             <li key={'more'} onClick={onClickMore}>
-                                <div className="searchedUser" >
+                                <div className="searchedUser">
                                     <div className="searchedUser__photo avatar"/>
                                     <div className="searchedUser__info">
                                         <div>

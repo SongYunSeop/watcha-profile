@@ -8,8 +8,7 @@ import {NextComponentType, NextPageContext} from "next";
 
 class _App extends App {
     static async getInitialProps({Component, ctx}: { Component: NextComponentType, ctx: NextPageContext }) {
-        let pageProps = {
-        };
+        let pageProps = {};
         if (Component.getInitialProps) {
             pageProps = await Component.getInitialProps(ctx);
         }
@@ -28,7 +27,7 @@ class _App extends App {
                     <Corner/>
                     <Component {...pageProps} />
                 </>
-                <script type="text/javascript"  src="/static/js/airbridge.js" />
+                <script type="text/javascript" src="/static/js/airbridge.js"/>
             </ThemeProvider>
         );
     }

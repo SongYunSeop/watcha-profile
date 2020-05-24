@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { theme } from '../style';
-const { colors } = theme;
+import {theme} from '../style';
+
+const {colors} = theme;
 
 const LogoStyles = styled.div`
   .logo {
@@ -19,14 +20,14 @@ const LogoStyles = styled.div`
 `;
 
 const Corner = () => (
-  <LogoStyles>
-    <a
-      href="/"
-      className="logo"
-      aria-label="Watcha Profile">
-        Watcha Profile
-    </a>
-  </LogoStyles>
+    <LogoStyles>
+        <a
+            href="/"
+            className="logo"
+            aria-label="Watcha Profile">
+            Watcha Profile
+        </a>
+    </LogoStyles>
 );
 
 export default Corner;

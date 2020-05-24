@@ -1,48 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import {Error, Head, UserInfo, Footer} from '../../../components';
-import FlipMove from 'react-flip-move';
 import {Section} from '../../../style';
 import ContentsStyles from '../../../components/styles/ContentsStyles';
 import DummyContent from "../../../components/DummyContent";
 import Content from "../../../components/Content";
 import BookCharts from "../../../components/BookCharts";
+import users from "../../../libs/watcha/users";
+import AirbridgeWrapper from "../../../libs/airbridge";
+import contents from "../../../libs/watcha/contents";
 
-const Books = (props: any) => {
-    const userID = props.query.userID.toString();
-    const [userData, setUserData] = useState(null);
-    const [books, setBooks] = useState(null);
+const Books = ({query, userData, books}) => {
+    const userID = query.userID.toString();
     const [page, setPage] = useState(1);
     const [error, setError] = useState({active: false, type: 200});
-
-    const getUserData = () => {
-        fetch(`/api/users/${userID}`)
-            .then(response => {
-                if (response.status === 404) {
-                    return setError({active: true, type: 404});
-                }
-                return response.json();
-            })
-            .then(json => setUserData(json))
-            .catch(error => {
-                setError({active: true, type: 400});
-                console.error('Error:', error);
-            });
-    };
-
-    const getBooks = () => {
-        fetch(`/api/users/${userID}/contents/books`)
-            .then(response => {
-                if (response.status === 404) {
-                    return setError({active: true, type: 404});
-                }
-                return response.json();
-            })
-            .then(json => setBooks(json.result))
-            .catch(error => {
-                setError({active: true, type: 400});
-                console.error('Error:', error);
-            });
-    }
 
     const renderBooks = () => {
         const pageSize = 9
@@ -56,7 +26,7 @@ const Books = (props: any) => {
                         imageUrl={content.poster.large}
                         title={content.title}
                         author={content.author_names.join(', ')}
-                        year={content.year.toLocaleString()}
+                        year={content.year.toString()}
                         avg_rating={(content.ratings_avg / 2).toLocaleString()}
                         user_rating={(user_content_action.rating / 2).toLocaleString()}/>
                 </li>
@@ -64,9 +34,12 @@ const Books = (props: any) => {
     }
 
     useEffect(() => {
-        getUserData();
-        getBooks();
-    }, []);
+        AirbridgeWrapper.getInstance().sendEvent("View", {
+            action: "Books",
+            label: userID,
+            customAttributes: {userName: userData.name}
+        })
+    }, [userID]);
 
     return (
         <main>
@@ -83,12 +56,12 @@ const Books = (props: any) => {
                             <ContentsStyles>
                                 <header><h2>Book</h2></header>
                                 <div className="content-list">
-                                    <FlipMove typeName="ul">
+                                    <ul>
                                         {renderBooks()}
                                         <DummyContent title={'...more'} onClick={() => {
                                             setPage(page + 1)
                                         }}/>
-                                    </FlipMove>
+                                    </ul>
                                 </div>
                             </ContentsStyles>
                         </Section>
@@ -101,3 +74,24 @@ const Books = (props: any) => {
 
 
 export default Books;
+
+Books.getInitialProps = async (props) => {
+    const query = props.query
+    const userID = props.query.userID.toString();
+    const userData = await users(userID).then(res => res.json()).then(json => json.result)
+    let data = []
+    const books = await contents.allBooks(userID).then((responses) => {
+        return responses.reduce(async (x: Array<Object>, json: Object) => {
+            await x;
+            json["result"].result.forEach(row => {
+                data.push(row)
+            })
+            return data
+        }, [])
+    }).then((result: Array<Object>) => {
+        return result.sort((x, y) => {
+            return y["user_content_action"].rating - x["user_content_action"].rating;
+        })
+    })
+    return {query, userData, books}
+}

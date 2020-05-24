@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { theme, mixins, media } from '../../style';
-const { colors } = theme;
+import {theme, mixins, media} from '../../style';
+
+const {colors} = theme;
 
 const ChartsStyles = styled.div`
   max-width: 1200px !important;

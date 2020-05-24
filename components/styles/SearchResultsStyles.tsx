@@ -1,20 +1,20 @@
 import styled from 'styled-components';
-import { theme, mixins, media } from '../../style';
-const { colors, fonts } = theme;
+import {theme, mixins, media} from '../../style';
+
+const {colors, fonts} = theme;
 
 const SearchResultsStyles = styled.div`
   ${mixins.flexCenter};
   flex-direction: column;
   text-align: center;
-
-  ${media.bp600`
-    padding-top: 4rem;
-  `};
+  max-width: 700px;
+  margin: 0 auto;
   
   .searchResultsContainer {
     width: 100%;
     max-height: 200px;
     overflow: scroll;
+    overflow-x: hidden;
     background-color: ${colors.darkGrey};
     .searchedUser{
       display: flex;
@@ -24,10 +24,11 @@ const SearchResultsStyles = styled.div`
       
       &__photo {
         margin-right: 12px;
+        min-width: 48px;
       }
       
       &__info {
-        width: 100%;
+        width: calc(100% - 60px);
         text-align: left;
         
         &__name {

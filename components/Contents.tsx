@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, forwardRef} from 'react';
 import PropTypes from 'prop-types';
 import FlipMove from 'react-flip-move';
 import {Section} from '../style';
@@ -9,7 +9,7 @@ import DummyContent from "./DummyContent";
 const Contents = ({contentType, data, onClickDetail}) => {
     const sectionTitle = contentType == 'movie' ? 'Movies' : contentType == 'tv' ? 'Tv' : 'Books'
 
-    const renderContent = ({content, user_content_action}) => {
+    const renderContent = (content, user_content_action) => {
 
         let author: string
         if (contentType == 'movie') {
@@ -22,14 +22,14 @@ const Contents = ({contentType, data, onClickDetail}) => {
         return (
             <li key={content.code.toString()}>
                 <Content
-                key={content.code.toString()}
-                code={content.code.toString()}
-                imageUrl={content.poster.medium}
-                title={content.title}
-                author={author}
-                year={content.year.toLocaleString()}
-                avg_rating={(content.ratings_avg / 2).toLocaleString()}
-                user_rating={(user_content_action.rating / 2).toLocaleString()}/>
+                    key={content.code.toString()}
+                    code={content.code.toString()}
+                    imageUrl={content.poster.medium}
+                    title={content.title}
+                    author={author}
+                    year={content.year.toString()}
+                    avg_rating={(content.ratings_avg / 2).toLocaleString()}
+                    user_rating={(user_content_action.rating / 2).toLocaleString()}/>
             </li>
         )
     }
@@ -39,10 +39,10 @@ const Contents = ({contentType, data, onClickDetail}) => {
             <ContentsStyles>
                 <header><h2>{sectionTitle}</h2></header>
                 <div className="content-list">
-                    <FlipMove typeName="ul">
-                        {data.ratings.result.map(contentData => renderContent(contentData))}
-                        <DummyContent onClick={onClickDetail} title='...more' />
-                    </FlipMove>
+                    <ul>
+                        {data.ratings.result.map(({content, user_content_action}) => renderContent(content, user_content_action))}
+                        <DummyContent onClick={onClickDetail} title='...more'/>
+                    </ul>
                 </div>
             </ContentsStyles></Section>
     )

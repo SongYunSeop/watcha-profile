@@ -19,8 +19,8 @@ const allMovies = async (userID: string) => {
         .then(res => res.json())
         .then(json => Math.ceil(json.result.action_count.ratings / maxSize))
         .then(count => {
-             return Promise.all(
-                Array.apply(null, Array(count)).map((i, page) => movieRating(userID, page+1))
+            return Promise.all(
+                Array.apply(null, Array(count)).map((i, page) => movieRating(userID, page + 1))
             )
         })
 }
@@ -32,7 +32,7 @@ const allTvSeasons = async (userID: string) => {
         .then(json => Math.ceil(json.result.action_count.ratings / maxSize))
         .then(count => {
             return Promise.all(
-                Array.apply(null, Array(count)).map((i, page) => tvSeasonRating(userID, page+1))
+                Array.apply(null, Array(count)).map((i, page) => tvSeasonRating(userID, page + 1))
             )
         })
 }
@@ -45,7 +45,7 @@ const allBooks = async (userID: string) => {
         .then(json => Math.ceil(json.result.action_count.ratings / maxSize))
         .then(count => {
             return Promise.all(
-                Array.apply(null, Array(count)).map((i, page) => bookRating(userID, page+1))
+                Array.apply(null, Array(count)).map((i, page) => bookRating(userID, page + 1))
             )
         })
 }
