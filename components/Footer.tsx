@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { theme, mixins, media } from '../style';
-const { colors } = theme;
+import {theme, mixins, media} from '../style';
+
+const {colors} = theme;
 
 const StyledFooter = styled.footer`
   ${mixins.flexCenter};
@@ -27,26 +28,26 @@ const StyledFooter = styled.footer`
 `;
 
 const Footer = () => (
-  <StyledFooter>
-    <div>
-      <span>Built with</span>
-      <a href="https://nextjs.org/" target="_blank" rel="noopener noreferrer">
-        Next.js
-      </a>
-      &middot;
-      <a href="https://www.styled-components.com/" target="_blank" rel="noopener noreferrer">
-        Styled Components
-      </a>
-      &middot;
-      <a
-        href="https://github.com/joshwcomeau/react-flip-move"
-        target="_blank"
-        rel="noopener noreferrer">
-        React Flip Move
-      </a>
-      and more!
-    </div>
-  </StyledFooter>
+    <StyledFooter>
+        <div>
+            <span>Built with</span>
+            <a href="https://nextjs.org/" target="_blank" rel="noopener noreferrer">
+                Next.js
+            </a>
+            &middot;
+            <a href="https://www.styled-components.com/" target="_blank" rel="noopener noreferrer">
+                Styled Components
+            </a>
+            &middot;
+            <a
+                href="https://github.com/joshwcomeau/react-flip-move"
+                target="_blank"
+                rel="noopener noreferrer">
+                React Flip Move
+            </a>
+            and more!
+        </div>
+    </StyledFooter>
 );
 
 export default Footer;

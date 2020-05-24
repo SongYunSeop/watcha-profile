@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { theme, mixins, media } from '../../style';
-const { colors, fonts } = theme;
+import {theme, mixins, media} from '../../style';
+
+const {colors, fonts} = theme;
 
 const SearchResultsStyles = styled.div`
   ${mixins.flexCenter};

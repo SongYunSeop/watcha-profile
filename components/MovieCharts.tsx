@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import buildChart from '../libs/chart';
 import ChartsStyles from './styles/ChartsStyles';
-import { Section } from '../style';
+import {Section} from '../style';
 
 const backgroundColor = [
     'rgba(255, 99, 132, 0.7)',
@@ -28,7 +28,7 @@ const borderColor = [
     'rgba(166,255,64,1)',
 ];
 
-const MovieCharts = ({ contentData }) => {
+const MovieCharts = ({contentData}) => {
 
     const [genreChartData, setGenreChartData] = useState(null);
     const initGenreChart = () => {
@@ -47,7 +47,7 @@ const MovieCharts = ({ contentData }) => {
             }, {})
         const agg = Object.keys(sample)
             .map((key) => ({label: key, value: sample[key]}))
-            .sort((x, y) => (y["value"] - x["value"]) )
+            .sort((x, y) => (y["value"] - x["value"]))
             .slice(0, 5)
         const labels = agg.map(repo => repo.label);
         const data = agg.map(repo => repo.value);
@@ -57,7 +57,7 @@ const MovieCharts = ({ contentData }) => {
             const chartType = 'pie';
             const axes = false;
             const legend = true;
-            const config = { ctx, chartType, labels, data,backgroundColor, borderColor, axes, legend };
+            const config = {ctx, chartType, labels, data, backgroundColor, borderColor, axes, legend};
             buildChart(config);
         }
     };
@@ -69,7 +69,7 @@ const MovieCharts = ({ contentData }) => {
             .sort((a, b) => b.user_content_action.rating - a.user_content_action.rating)
         const labels = [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]
         let data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        mostStarredRepos.map(repo => data[repo.user_content_action.rating-1] += 1);
+        mostStarredRepos.map(repo => data[repo.user_content_action.rating - 1] += 1);
 
         setRatingChartData(data);
 
@@ -77,7 +77,7 @@ const MovieCharts = ({ contentData }) => {
             const chartType = 'bar';
             const axes = true;
             const legend = false;
-            const config = { ctx, chartType, labels, data, backgroundColor, borderColor, axes, legend };
+            const config = {ctx, chartType, labels, data, backgroundColor, borderColor, axes, legend};
             buildChart(config);
         }
     };
@@ -99,7 +99,7 @@ const MovieCharts = ({ contentData }) => {
             }, {})
         const agg = Object.keys(sample)
             .map((key) => ({label: key, value: sample[key]}))
-            .sort((x, y) => (y["value"] - x["value"]) )
+            .sort((x, y) => (y["value"] - x["value"]))
             .slice(0, 5)
         const labels = agg.map(repo => repo.label);
         const data = agg.map(repo => repo.value);
@@ -108,7 +108,7 @@ const MovieCharts = ({ contentData }) => {
             const chartType = 'doughnut';
             const axes = false;
             const legend = true;
-            const config = { ctx, chartType, labels, data, backgroundColor, borderColor, axes, legend };
+            const config = {ctx, chartType, labels, data, backgroundColor, borderColor, axes, legend};
             buildChart(config);
         }
     };
@@ -133,7 +133,7 @@ const MovieCharts = ({ contentData }) => {
                     <header><h2>Genre</h2></header>
                     <div className="chart-container">
                         {genreChartError && <p>Nothing to see here!</p>}
-                        <canvas id="genreChart" width={chartSize} height={chartSize} />
+                        <canvas id="genreChart" width={chartSize} height={chartSize}/>
                     </div>
                 </div>
 
@@ -141,7 +141,7 @@ const MovieCharts = ({ contentData }) => {
                     <header><h2>Rating</h2></header>
                     <div className="chart-container">
                         {ratingChartError && <p>Nothing to see here!</p>}
-                        <canvas id="ratingChart" width={chartSize} height={chartSize} />
+                        <canvas id="ratingChart" width={chartSize} height={chartSize}/>
                     </div>
                 </div>
 
@@ -149,7 +149,7 @@ const MovieCharts = ({ contentData }) => {
                     <header><h2>Conutry</h2></header>
                     <div className="chart-container">
                         {countryChartError && <p>Nothing to see here!</p>}
-                        <canvas id="countryChart" width={chartSize} height={chartSize} />
+                        <canvas id="countryChart" width={chartSize} height={chartSize}/>
                     </div>
                 </div>
             </ChartsStyles>

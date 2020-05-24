@@ -6,28 +6,13 @@ import ContentsStyles from '../../../components/styles/ContentsStyles';
 import DummyContent from "../../../components/DummyContent";
 import Content from "../../../components/Content";
 import TvCharts from "../../../components/TvCharts";
+import users from "../../../libs/watcha/users";
 
-const TvSeasons = (props: any) => {
-    const userID = props.query.userID.toString();
-    const [userData, setUserData] = useState(null);
+const TvSeasons = ({query, userData}) => {
+    const userID = query.userID.toString();
     const [tvSeasons, setTvSeasons] = useState(null);
     const [page, setPage] = useState(1);
     const [error, setError] = useState({active: false, type: 200});
-
-    const getUserData = () => {
-        fetch(`/api/users/${userID}`)
-            .then(response => {
-                if (response.status === 404) {
-                    return setError({active: true, type: 404});
-                }
-                return response.json();
-            })
-            .then(json => setUserData(json))
-            .catch(error => {
-                setError({active: true, type: 400});
-                console.error('Error:', error);
-            });
-    };
 
     const getTvSeasons = () => {
         fetch(`/api/users/${userID}/contents/tv_seasons`)
@@ -64,7 +49,6 @@ const TvSeasons = (props: any) => {
     }
 
     useEffect(() => {
-        getUserData();
         getTvSeasons();
     }, []);
 
@@ -101,3 +85,10 @@ const TvSeasons = (props: any) => {
 
 
 export default TvSeasons;
+
+TvSeasons.getInitialProps = async (props) => {
+    const query = props.query
+    const userID = props.query.userID.toString();
+    const userData = await users(userID).then(res => res.json()).then(json => json.result)
+    return {query, userData}
+}

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { theme, mixins, media } from '../../style';
-const { colors, fonts } = theme;
+import {theme, mixins, media} from '../../style';
+
+const {colors, fonts} = theme;
 
 const UserInfoStyles = styled.div`
   ${mixins.flexCenter};
