@@ -1,30 +1,31 @@
-import { css } from 'styled-components';
-import { theme } from '../style';
-const { colors } = theme;
+import {css} from 'styled-components';
+import {theme} from '../style';
+
+const {colors} = theme;
 
 const mixins = {
-  flexCenter: css`
+    flexCenter: css`
     display: flex;
     justify-content: center;
     align-items: center;
   `,
 
-  flexBetween: css`
+    flexBetween: css`
     display: flex;
     justify-content: space-between;
   `,
 
-  outline: css`
+    outline: css`
     outline: 1px solid red;
   `,
 
-  ellipsis: css`
+    ellipsis: css`
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
   `,
 
-  blueButton: css`
+    blueButton: css`
     color: ${colors.white};
     background-color: ${colors.blue};
     padding: 1rem 2rem;

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import UserInfoStyles from './styles/UserInfoStyles';
 import {Section} from '../style';
+import Router from "next/router";
 
 const UserInfo = ({userData}) => (
     <Section image>
@@ -18,15 +19,21 @@ const UserInfo = ({userData}) => (
                 {userData.bio && <h4>{userData.bio}</h4>}
 
                 <div className="stats">
-                    <div className="stats__item">
+                    <div className="stats__item" onClick={() => {
+                        Router.push({pathname: `/users/${userData.code}/movies`,});
+                    }}>
                         <span className="num">{userData.action_counts.movies.ratings}</span>
                         <span className="num-label">Movies</span>
                     </div>
-                    <div className="stats__item">
+                    <div className="stats__item" onClick={() => {
+                        Router.push({pathname: `/users/${userData.code}/tv_seasons`,});
+                    }}>
                         <span className="num">{userData.action_counts.tv_seasons.ratings}</span>
                         <span className="num-label">TV</span>
                     </div>
-                    <div className="stats__item">
+                    <div className="stats__item" onClick={() => {
+                        Router.push({pathname: `/users/${userData.code}/books`,});
+                    }}>
                         <span className="num">{userData.action_counts.books.ratings}</span>
                         <span className="num-label">Books</span>
                     </div>

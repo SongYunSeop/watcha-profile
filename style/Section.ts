@@ -1,6 +1,7 @@
-import styled, { css } from 'styled-components';
-import { theme, media } from '../style';
-const { colors } = theme;
+import styled, {css} from 'styled-components';
+import {theme, media} from '../style';
+
+const {colors} = theme;
 
 const Section = styled.section`
   padding: 3rem 5rem;
@@ -12,7 +13,7 @@ const Section = styled.section`
     padding: 1rem;
   `};
 
-  ${props => 
+  ${props =>
     props.dark &&
     css`
       background-color: ${colors.black};
@@ -24,7 +25,7 @@ const Section = styled.section`
       `};
     ` ||
     props.image &&
-      css `
+    css`
       background-image: url("/static/background.jpg");
       background-size: cover;
       background-position-x: center;
@@ -36,7 +37,7 @@ const Section = styled.section`
         padding-bottom: 10rem;
       `};
     `
-  };
+};
 
   & > div {
     max-width: 1400px;
