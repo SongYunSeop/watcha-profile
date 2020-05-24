@@ -19,6 +19,11 @@ interface Airbridge {
     }
 }
 
+declare global {
+    interface Window {
+        airbridge: Airbridge;
+    }
+}
 
 class AirbridgeWrapper {
     private static instance: AirbridgeWrapper;
@@ -32,14 +37,16 @@ class AirbridgeWrapper {
             AirbridgeWrapper.instance = new AirbridgeWrapper()
         }
         if (window && !AirbridgeWrapper.sdk) {
-            AirbridgeWrapper.sdk = window.airbridge
+            const {airbridge} = window;
+            AirbridgeWrapper.sdk = airbridge
         }
         return AirbridgeWrapper.instance;
     }
 
     public static getSDK(): Airbridge {
-        if (window && !AirbridgeWrapper.getInstance().sdk) {
-            AirbridgeWrapper.sdk = window.airbridge
+        if (window && !AirbridgeWrapper.sdk) {
+            const {airbridge} = window;
+            AirbridgeWrapper.sdk = airbridge
         }
         return AirbridgeWrapper.sdk;
     }
