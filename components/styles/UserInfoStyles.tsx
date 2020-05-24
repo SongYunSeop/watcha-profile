@@ -78,11 +78,15 @@ const UserInfoStyles = styled.div`
 
     &__item {
       ${mixins.flexCenter};
+      margin: 0 1rem 0.5rem;
+      white-space: nowrap;
+      cursor: pointer;
       flex-direction: column;
       background-color: ${colors.darkGrey};
       padding: 1rem;
       border-radius: 0.25rem;
       text-align: center;
+      cursor: pointer;
       ${media.bp400`
         padding: 1rem 0.5rem;
       `};
@@ -103,6 +107,14 @@ const UserInfoStyles = styled.div`
         ${media.bp400`
           font-size: 0.5rem;
         `};
+      }
+      :hover {
+        .num{
+          color: ${colors.pink}
+        }
+        .num-label { 
+          color: ${colors.pink}
+        }
       }
     }
   }

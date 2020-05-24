@@ -4,4 +4,4 @@ import media from './media';
 import GlobalStyle from './GlobalStyle';
 import Section from './Section';
 
-export { theme, mixins, media, GlobalStyle, Section };
+export {theme, mixins, media, GlobalStyle, Section};
