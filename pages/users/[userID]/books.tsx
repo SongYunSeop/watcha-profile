@@ -7,10 +7,11 @@ import Content from "../../../components/Content";
 import BookCharts from "../../../components/BookCharts";
 import users from "../../../libs/watcha/users";
 import AirbridgeWrapper from "../../../libs/airbridge";
-import contents from "../../../libs/watcha/contents";
+import FilpMove from 'react-flip-move'
 
-const Books = ({query, userData, books}) => {
+const Books = ({query, userData}) => {
     const userID = query.userID.toString();
+    const [books, setBooks] = useState([])
     const [page, setPage] = useState(1);
     const [error, setError] = useState({active: false, type: 200});
 
@@ -33,7 +34,23 @@ const Books = ({query, userData, books}) => {
             ))
     }
 
+    const getBooks = () => {
+        fetch(`/api/users/${userID}/contents/books`)
+            .then(response => {
+                if (response.status != 200) {
+                    return setError({active: true, type: response.status})
+                }
+                return response.json()
+            })
+            .then(json => setBooks(json.result))
+            .catch(error => {
+                setError({active: true, type: 400})
+                console.error(error);
+            })
+    }
+
     useEffect(() => {
+        getBooks();
         AirbridgeWrapper.getInstance().sendEvent("View", {
             action: "Books",
             label: userID,
@@ -49,19 +66,19 @@ const Books = ({query, userData, books}) => {
                 <>
                     <Head title={`${userID ? `Watcha Profile | ${userID}` : 'Watcha Profile'}`}/>
                     {userData && <UserInfo userData={userData}/>}
-                    {books && <BookCharts contentData={books}/>}
+                    {books != null && <BookCharts contentData={books}/>}
                     {books != null && books.length > 0 &&
                     (
                         <Section>
                             <ContentsStyles>
                                 <header><h2>Book</h2></header>
                                 <div className="content-list">
-                                    <ul>
+                                    <FilpMove typeName={"ul"}>
                                         {renderBooks()}
                                         <DummyContent title={'...more'} onClick={() => {
                                             setPage(page + 1)
                                         }}/>
-                                    </ul>
+                                    </FilpMove>
                                 </div>
                             </ContentsStyles>
                         </Section>
@@ -79,19 +96,5 @@ Books.getInitialProps = async (props) => {
     const query = props.query
     const userID = props.query.userID.toString();
     const userData = await users(userID).then(res => res.json()).then(json => json.result)
-    let data = []
-    const books = await contents.allBooks(userID).then((responses) => {
-        return responses.reduce(async (x: Array<Object>, json: Object) => {
-            await x;
-            json["result"].result.forEach(row => {
-                data.push(row)
-            })
-            return data
-        }, [])
-    }).then((result: Array<Object>) => {
-        return result.sort((x, y) => {
-            return y["user_content_action"].rating - x["user_content_action"].rating;
-        })
-    })
-    return {query, userData, books}
+    return {query, userData}
 }

@@ -7,10 +7,11 @@ import Content from "../../../components/Content";
 import TvCharts from "../../../components/TvCharts";
 import users from "../../../libs/watcha/users";
 import AirbridgeWrapper from "../../../libs/airbridge";
-import contents from "../../../libs/watcha/contents";
+import FilpMove from 'react-flip-move'
 
-const TvSeasons = ({query, userData, tvSeasons}) => {
+const TvSeasons = ({query, userData}) => {
     const userID = query.userID.toString();
+    const [tvSeasons, setTvSeasons] = useState([])
     const [page, setPage] = useState(1);
     const [error, setError] = useState({active: false, type: 200});
 
@@ -33,7 +34,24 @@ const TvSeasons = ({query, userData, tvSeasons}) => {
             ))
     }
 
+    const getTvSeasons = () => {
+        fetch(`/api/users/${userID}/contents/tv_seasons`)
+            .then(response => {
+                if (response.status != 200) {
+                    return setError({active: true, type: response.status})
+                }
+                return response.json()
+            })
+            .then(json => setTvSeasons(json.result))
+            .catch(error => {
+                setError({active: true, type: 400})
+                console.error(error);
+            })
+    }
+
+
     useEffect(() => {
+        getTvSeasons();
         AirbridgeWrapper.getInstance().sendEvent("View", {
             action: "TvSeasons",
             label: userID,
@@ -50,19 +68,19 @@ const TvSeasons = ({query, userData, tvSeasons}) => {
                 <>
                     <Head title={`${userID ? `Watcha Profile | ${userID}` : 'Watcha Profile'}`}/>
                     {userData && <UserInfo userData={userData}/>}
-                    {tvSeasons && <TvCharts contentData={tvSeasons}/>}
+                    {tvSeasons != null && <TvCharts contentData={tvSeasons}/>}
                     {tvSeasons != null && tvSeasons.length > 0 &&
                     (
                         <Section>
                             <ContentsStyles>
                                 <header><h2>Movie</h2></header>
                                 <div className="content-list">
-                                    <ul>
+                                    <FilpMove typeName={"ul"}>
                                         {renderTvSeasons()}
                                         <DummyContent title={'...more'} onClick={() => {
                                             setPage(page + 1)
                                         }}/>
-                                    </ul>
+                                    </FilpMove>
                                 </div>
                             </ContentsStyles>
                         </Section>
@@ -80,19 +98,5 @@ TvSeasons.getInitialProps = async (props) => {
     const query = props.query
     const userID = props.query.userID.toString();
     const userData = await users(userID).then(res => res.json()).then(json => json.result)
-    let data = []
-    const tvSeasons = await contents.allTvSeasons(userID).then((responses) => {
-        return responses.reduce(async (x: Array<Object>, json: Object) => {
-            await x;
-            json["result"].result.forEach(row => {
-                data.push(row)
-            })
-            return data
-        }, [])
-    }).then((result: Array<Object>) => {
-        return result.sort((x, y) => {
-            return y["user_content_action"].rating - x["user_content_action"].rating;
-        })
-    })
-    return {query, userData, tvSeasons}
+    return {query, userData}
 }

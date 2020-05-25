@@ -33,6 +33,11 @@ const ChartsStyles = styled.div`
     p {
       color: ${colors.grey2};
     }
+    .chart-progress {
+      text-align: center;
+      font-size: 2em;
+      margin: 0 auto;
+    }
   }
 `;
 
