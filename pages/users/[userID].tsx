@@ -17,7 +17,7 @@ const User = ({query, userData, movies, tv_seasons, books}) => {
             label: userID,
             customAttributes: {userName: userData.name}
         })
-    }, [userID])
+    }, [])
 
     return (
         <main>

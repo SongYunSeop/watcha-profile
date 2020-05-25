@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import buildChart from '../libs/chart';
 import ChartsStyles from './styles/ChartsStyles';
 import {Section} from '../style';
+import {CircularProgress} from '@material-ui/core';
 
 const backgroundColor = [
     'rgba(255, 99, 132, 0.7)',
@@ -120,36 +121,40 @@ const MovieCharts = ({contentData}) => {
             initRatingChart()
             initCountryChart()
         }
-    }, []);
+    }, [contentData]);
 
     const chartSize = 300;
-    const genreChartError = !(contentData && contentData.length > 0);
-    const ratingChartError = !(contentData && contentData.length > 0);
-    const countryChartError = !(contentData && contentData.length > 0);
+    const chartError = !(contentData && contentData.length > 0);
     return (
         <Section>
             <ChartsStyles>
                 <div className="chart">
                     <header><h2>Genre</h2></header>
                     <div className="chart-container">
-                        {genreChartError && <p>Nothing to see here!</p>}
-                        <canvas id="genreChart" width={chartSize} height={chartSize}/>
+                        {chartError && <p className="chart-progress"><CircularProgress/>
+                            <div>Loading...</div>
+                        </p>}
+                        <canvas id="genreChart" width={chartSize} height={chartError ? 0 : chartSize}/>
                     </div>
                 </div>
 
                 <div className="chart">
                     <header><h2>Rating</h2></header>
                     <div className="chart-container">
-                        {ratingChartError && <p>Nothing to see here!</p>}
-                        <canvas id="ratingChart" width={chartSize} height={chartSize}/>
+                        {chartError && <p className="chart-progress"><CircularProgress/>
+                            <div>Loading...</div>
+                        </p>}
+                        <canvas id="ratingChart" width={chartSize} height={chartError ? 0 : chartSize}/>
                     </div>
                 </div>
 
                 <div className="chart">
                     <header><h2>Conutry</h2></header>
                     <div className="chart-container">
-                        {countryChartError && <p>Nothing to see here!</p>}
-                        <canvas id="countryChart" width={chartSize} height={chartSize}/>
+                        {chartError && <p className="chart-progress"><CircularProgress/>
+                            <div>Loading...</div>
+                        </p>}
+                        <canvas id="countryChart" width={chartSize} height={chartError ? 0 : chartSize}/>
                     </div>
                 </div>
             </ChartsStyles>

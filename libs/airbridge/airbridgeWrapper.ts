@@ -1,23 +1,4 @@
-interface eventObject {
-    action?: string;
-    label?: string;
-    value?: number;
-    customAttributes?: Object
-}
-
-interface Airbridge {
-    init(appName: string, webToken: string, utmParsing?: boolean): void;
-
-    events: {
-        signUp(userID?: string, userEmail?: string): void;
-
-        signIn(userID?: string, userEmail?: string): void;
-
-        signOut(): void;
-
-        send(category: string, info?: eventObject): void
-    }
-}
+import Airbridge, {initObject, UserObject, eventObject} from "./types";
 
 declare global {
     interface Window {
@@ -51,24 +32,24 @@ class AirbridgeWrapper {
         return AirbridgeWrapper.sdk;
     }
 
-    public init(appName: string, webToken: string, utmParsing?: boolean): void {
-        AirbridgeWrapper.getSDK().init(appName, webToken, utmParsing)
+    public init(obj: initObject): void {
+        AirbridgeWrapper.getSDK().init(obj)
     }
 
-    public signIn(userID?: string, userEmail?: string): void {
-        AirbridgeWrapper.getSDK().events.signIn(userID, userEmail)
+    public signIn(user: UserObject): void {
+        AirbridgeWrapper.getSDK().events.signIn(user)
     }
 
-    public signUp(userID?: string, userEmail?: string): void {
-        AirbridgeWrapper.getSDK().events.signUp(userID, userEmail)
+    public signUp(user: UserObject): void {
+        AirbridgeWrapper.getSDK().events.signUp(user)
     }
 
     public signOut(): void {
         AirbridgeWrapper.getSDK().events.signOut()
     }
 
-    public sendEvent(category: string, eventObject?: Object): void {
-        AirbridgeWrapper.getSDK().events.send(category, eventObject)
+    public sendEvent(category: string, event?: eventObject): void {
+        AirbridgeWrapper.getSDK().events.send(category, event)
     }
 }
 
