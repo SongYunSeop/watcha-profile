@@ -90,7 +90,7 @@ const Home = () => {
 
     const handleDebounceInput = useCallback(_.debounce((value: string) => {
         setQuery(value);
-    }, 500), []);
+    }, 300), []);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         handleDebounceInput(e.target.value);
@@ -118,7 +118,7 @@ const Home = () => {
                 }}>
                     <label htmlFor="username">Make Your Watcha Profile</label>
                     <input name="search" type="text" onChange={handleSearch}
-                           placeholder={'이동진 평론가 or 송윤섭 or Your Name!'}/>
+                           placeholder={'영화중독자 or 영화탐험가 or Your Name!'}/>
                     {(query != "" && searchResults.length > 0) && (
                         <SearchResults
                             searchResults={searchResults}
