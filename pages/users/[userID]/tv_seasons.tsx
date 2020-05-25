@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Error, Head, UserInfo, Footer} from '../../../components';
+import {Error, Head, UserInfo} from '../../../components';
 import {Section} from '../../../style';
 import ContentsStyles from '../../../components/styles/ContentsStyles';
 import DummyContent from "../../../components/DummyContent";
@@ -40,7 +40,7 @@ const TvSeasons = ({query, userData, tvSeasons}) => {
             customAttributes: {userName: userData.name}
         })
 
-    }, [userID]);
+    }, []);
 
     return (
         <main>
