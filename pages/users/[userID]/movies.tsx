@@ -8,6 +8,7 @@ import MovieCharts from "../../../components/MovieCharts";
 import users from "../../../libs/watcha/users";
 import AirbridgeWrapper from "../../../libs/airbridge";
 import FilpMove from 'react-flip-move'
+import UserCache from "../../../libs/cache";
 
 const Movies = ({query, userData}) => {
     const userID = query.userID.toString();
@@ -28,8 +29,8 @@ const Movies = ({query, userData}) => {
                         title={content.title}
                         author={content.director_names.join(', ')}
                         year={content.year.toString()}
-                        avg_rating={(content.ratings_avg / 2).toLocaleString()}
-                        user_rating={(user_content_action.rating / 2).toLocaleString()}/>
+                        avg_rating={(content.ratings_avg / 2).toFixed(1)}
+                        user_rating={(user_content_action.rating / 2).toFixed(1)}/>
                 </li>
             ))
     }
@@ -97,19 +98,7 @@ Movies.getInitialProps = async (props) => {
     const query = props.query
     const userID = props.query.userID.toString();
     const userData = await users(userID).then(res => res.json()).then(json => json.result)
-    // let data = []
-    // const movies = await contents.allMovies(userID).then((responses) => {
-    //     return responses.reduce(async (x: Array<Object>, json: Object) => {
-    //         await x;
-    //         json["result"].result.forEach(row => {
-    //             data.push(row)
-    //         })
-    //         return data
-    //     }, [])
-    // }).then((result: Array<Object>) => {
-    //     return result.sort((x, y) => {
-    //         return y["user_content_action"].rating - x["user_content_action"].rating;
-    //     })
-    // })
+    const userCache = UserCache.getInstance().cache
+    userCache.set(userID, userData)
     return {query, userData}
 }

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import buildChart from '../libs/chart';
 import ChartsStyles from './styles/ChartsStyles';
 import {Section} from '../style';

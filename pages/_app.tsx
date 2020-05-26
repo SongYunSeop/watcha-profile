@@ -1,7 +1,7 @@
 import App from 'next/app';
 import React from 'react';
 import {ThemeProvider} from 'styled-components';
-import {theme, GlobalStyle} from '../style';
+import {GlobalStyle, theme} from '../style';
 import Corner from "../components/Corner";
 import Logo from "../components/Logo";
 import {NextComponentType, NextPageContext} from "next";

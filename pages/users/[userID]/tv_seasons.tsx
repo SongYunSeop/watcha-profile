@@ -8,6 +8,7 @@ import TvCharts from "../../../components/TvCharts";
 import users from "../../../libs/watcha/users";
 import AirbridgeWrapper from "../../../libs/airbridge";
 import FilpMove from 'react-flip-move'
+import UserCache from "../../../libs/cache";
 
 const TvSeasons = ({query, userData}) => {
     const userID = query.userID.toString();
@@ -28,8 +29,8 @@ const TvSeasons = ({query, userData}) => {
                         title={content.title}
                         author={content.channel_name}
                         year={content.year.toString()}
-                        avg_rating={(content.ratings_avg / 2).toLocaleString()}
-                        user_rating={(user_content_action.rating / 2).toLocaleString()}/>
+                        avg_rating={(content.ratings_avg / 2).toFixed(1)}
+                        user_rating={(user_content_action.rating / 2).toFixed(1)}/>
                 </li>
             ))
     }
@@ -98,5 +99,7 @@ TvSeasons.getInitialProps = async (props) => {
     const query = props.query
     const userID = props.query.userID.toString();
     const userData = await users(userID).then(res => res.json()).then(json => json.result)
+    const userCache = UserCache.getInstance().cache
+    userCache.set(userID, userData)
     return {query, userData}
 }

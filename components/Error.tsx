@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import {Head, Corner} from '../components';
-import {theme, mixins} from '../style';
+import {Corner, Head} from '../components';
+import {mixins, theme} from '../style';
 
 const {colors} = theme;
 

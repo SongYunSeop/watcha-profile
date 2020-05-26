@@ -1,11 +1,12 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Router from 'next/router'
 import PropTypes from 'prop-types';
-import {Error, Head, UserInfo, Footer} from '../../components';
+import {Error, Footer, Head, UserInfo} from '../../components';
 import Contents from "../../components/Contents";
 import users from '../../libs/watcha/users'
 import contents from '../../libs/watcha/contents'
 import AirbridgeWrapper from "../../libs/airbridge";
+import UserCache from "../../libs/cache";
 
 const User = ({query, userData, movies, tv_seasons, books}) => {
     const userID = query.userID.toString();
@@ -63,6 +64,8 @@ User.getInitialProps = async (props) => {
     const query = props.query
     const userID = props.query.userID.toString();
     const userData = await users(userID).then(res => res.json()).then(json => json.result)
+    const userCache = UserCache.getInstance().cache
+    userCache.set(userID, userData)
     const movies = await contents.movies(userID).then(res => res.json()).then(json => json.result)
     const tv_seasons = await contents.tv_seasons(userID).then(res => res.json()).then(json => json.result)
     const books = await contents.books(userID).then(res => res.json()).then(json => json.result)
