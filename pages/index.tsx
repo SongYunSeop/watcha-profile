@@ -2,10 +2,13 @@ import React, {useCallback, useEffect, useState} from 'react';
 import Router from 'next/router';
 import {Head} from '../components';
 import styled from 'styled-components';
-import {theme} from '../style';
+import {mixins, theme} from '../style';
 import SearchResults from "../components/SearchResults";
 import _ from 'lodash'
 import AirbridgeWrapper from "../libs/airbridge";
+import UserCache from "../libs/cache";
+import FilpMove from 'react-flip-move'
+import StarIcon from "@material-ui/icons/Star";
 
 const {colors, fonts} = theme;
 
@@ -18,6 +21,46 @@ const StyledContainer = styled.div`
   color: ${colors.offWhite};
   height: 100vh;
   padding-top: 17vh;
+  .recentUsers {
+    max-width: calc(100% - 200px);
+    margin: 0 auto;
+    
+    ul {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1em));
+        grid-gap: 1rem;
+    }
+
+    .user {
+        ${mixins.flexCenter};
+        background: ${colors.offWhite};
+        color: ${colors.darkGrey};
+        border-radius: 0.25rem;
+        padding: 2px;
+        text-align: center;
+        font-size: 0.9em;
+        flex-direction: column;
+        width: 120px;
+        cursor: pointer;
+
+        &__avatar {
+            ${mixins.flexCenter};
+            border-radius: 100%;
+            width: 30px;
+            height: 30px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin-right: 4px;
+        }
+        &__name {
+            font-weight: 700;
+            font-size: 1.2em;
+        }
+        &__rating {
+            font-weight: 500;
+        }
+    }
+  }
 
   form {
     margin: 0 auto;
@@ -54,7 +97,7 @@ const StyledContainer = styled.div`
   }
 `;
 
-const Home = () => {
+const Home = ({recentUsers}) => {
     const [query, setQuery] = useState('');
     const [searchPage, setSearchPage] = useState(1);
     const [searchResults, setSearchResults] = useState([]);
@@ -109,10 +152,32 @@ const Home = () => {
         }
     }, [query, searchPage])
 
+    const renderRecentUsers = () => {
+        return recentUsers.map(user => {
+            return (
+                <li>
+                    <a href={`/users/${user.code}`} className="user">
+                        <span className="user__avatar" style={{backgroundImage: `url(${user.photo.small})`}}/>
+                        <span className="user__name">{user.name}</span>
+                        <span className="user__rating"><StarIcon
+                            style={{color: colors.yellow}}/>{user.ratings_count}</span>
+                    </a>
+                </li>
+            )
+        })
+    }
+
     return (
         <main>
             <Head title="Watcha Profile"/>
             <StyledContainer>
+                <div className="recentUsers">
+                    <FilpMove typeName="ul">
+                        {recentUsers && recentUsers.length > 0 && (
+                            renderRecentUsers()
+                        )}
+                    </FilpMove>
+                </div>
                 <form onSubmit={e => {
                     e.preventDefault()
                 }}>
@@ -131,3 +196,10 @@ const Home = () => {
 }
 
 export default Home;
+
+Home.getInitialProps = async (props) => {
+    const userCache = UserCache.getInstance().cache
+    const keys = userCache.keys()
+    const recentUsers = keys.length > 0 ? Object.values(userCache.mget(keys)) : []
+    return {recentUsers}
+}

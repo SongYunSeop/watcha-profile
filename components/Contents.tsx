@@ -1,6 +1,5 @@
-import React, {useState, useEffect, forwardRef} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import FlipMove from 'react-flip-move';
 import {Section} from '../style';
 import ContentsStyles from './styles/ContentsStyles';
 import Content from "./Content";
@@ -28,8 +27,8 @@ const Contents = ({contentType, data, onClickDetail}) => {
                     title={content.title}
                     author={author}
                     year={content.year.toString()}
-                    avg_rating={(content.ratings_avg / 2).toLocaleString()}
-                    user_rating={(user_content_action.rating / 2).toLocaleString()}/>
+                    avg_rating={(content.ratings_avg / 2).toFixed(1)}
+                    user_rating={(user_content_action.rating / 2).toFixed(1)}/>
             </li>
         )
     }
