@@ -102,6 +102,7 @@ const Home = ({recentUsers}) => {
     const [searchPage, setSearchPage] = useState(1);
     const [searchResults, setSearchResults] = useState([]);
     const [error, setError] = useState({active: false, type: 200});
+    console.log(recentUsers)
 
     const onSelectUser = (code) => {
         AirbridgeWrapper.getInstance().sendEvent("SelectUser", {action: code})
