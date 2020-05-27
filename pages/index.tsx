@@ -133,7 +133,7 @@ const Home = ({recentUsers}) => {
 
     const handleDebounceInput = useCallback(_.debounce((value: string) => {
         setQuery(value);
-    }, 300), []);
+    }, 200), []);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         handleDebounceInput(e.target.value);
