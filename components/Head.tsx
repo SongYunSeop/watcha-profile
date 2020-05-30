@@ -29,6 +29,7 @@ const Head = props => (
         <meta name="twitter:description" content={props.description || defaultDescription}/>
         <meta name="twitter:creator" content={'@songyunseop'}/>
         <meta name="twitter:title" content={props.title || defaultTitle}/>
+        <meta property="og:type" content={"website"}/>
         <meta property="og:image" content={props.ogImage || defaultOGImage}/>
         <meta property="og:image:width" content="1200"/>
         <meta property="og:image:height" content="630"/>
