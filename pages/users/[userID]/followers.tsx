@@ -65,7 +65,8 @@ const Followers = ({query, userData}) => {
                 <Error error={error}/>
             ) : (
                 <>
-                    <Head title={`${userID ? `Watcha Profile | ${userID}` : 'Watcha Profile'}`}/>
+                    <Head title={`${userData.name ? `Watcha Profile | ${userData.name}` : 'Watcha Profile'}`}
+                          url={`https://watcha-profile.songyunseop.com/users/${userID}/followers`}/>
                     {userData && <UserInfo userData={userData}/>}
                     {followers != null && <FollowersCharts userData={userData} followersData={followers}/>}
                     {followers != null && followers.length > 0 &&
