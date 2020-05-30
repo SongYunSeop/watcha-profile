@@ -17,7 +17,7 @@ jobs:
     - run: npm install
     - run: echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> .env
       env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.SERVERLESS_AWS_ACCESS_KEY_ID }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.SERVERLESS_AWS_ACCESS_KEY }}
     - run: echo "AWS_SECRET_ACCESS_KEY=AWS_SECRET_ACCESS_KEY" >> .env
       env:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.SERVERLESS_AWS_SECRET_ACCESS_KEY }}
