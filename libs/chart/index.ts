@@ -38,7 +38,7 @@ const buildLegend = legend => {
 };
 
 const buildChart = config => {
-    const {ctx, chartType, labels, data, backgroundColor, borderColor, axes, legend} = config;
+    const {ctx, chartType, labels, data, backgroundColor, borderColor, axes, legend, hoverBorderColor, hoverBackgroundColor} = config;
 
     return new Chart(ctx, {
         type: chartType,
@@ -51,6 +51,8 @@ const buildChart = config => {
                     data,
                     backgroundColor,
                     borderColor,
+                    hoverBackgroundColor: hoverBackgroundColor ? hoverBackgroundColor : backgroundColor,
+                    hoverBorderColor: hoverBorderColor ? hoverBorderColor : borderColor,
                     borderWidth: 1,
                 },
             ],

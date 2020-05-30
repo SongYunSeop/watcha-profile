@@ -3,12 +3,8 @@ import {media, mixins, theme} from '../../style';
 
 const {colors} = theme;
 
-const ChartsStyles = styled.div`
-  max-width: 1200px !important;
+const LongChartsStyles = styled.div`
   margin-top: -20rem !important;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-gap: 2rem;
   justify-content: center;
   ${media.bp900`
     justify-items: center;
@@ -17,7 +13,6 @@ const ChartsStyles = styled.div`
 
   .chart {
     background-color: ${colors.white};
-    max-width: 500px;
     padding: 2rem;
     border-radius: 0.25rem;
     box-shadow: 0 5px 30px -15px rgba(0, 0, 0, 0.2);
@@ -42,4 +37,4 @@ const ChartsStyles = styled.div`
   }
 `;
 
-export default ChartsStyles;
+export default LongChartsStyles;
