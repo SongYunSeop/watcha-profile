@@ -88,7 +88,7 @@ const FollowersCharts = ({userData, followersData}) => {
 
     const chartSize = 1400;
     const chartWidth = 1200;
-    const chartHeight = 500;
+    const chartHeight = 700;
 
     const chartError = !(followersData && followersData.length > 0);
     return (

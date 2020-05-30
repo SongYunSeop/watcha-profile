@@ -88,7 +88,7 @@ const FriendsCharts = ({userData, friendsData}) => {
 
     const chartSize = 1400;
     const chartWidth = 1200;
-    const chartHeight = 500;
+    const chartHeight = 700;
 
     const chartError = !(friendsData && friendsData.length > 0);
     return (
