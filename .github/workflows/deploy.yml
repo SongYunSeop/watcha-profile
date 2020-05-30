@@ -1,13 +1,9 @@
-# This is a basic workflow to help you get started with Actions
-
-name: CI
-
+name: Deploy
 
 on:
   push:
     branches:
       - master
-
 
 jobs:
   deploy:
@@ -19,8 +15,11 @@ jobs:
       with:
         node-version: '12'
     - run: npm install
-    - name: Serverless
-      uses: serverless/github-action@v1.53.0
+    - run: echo 'AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID' >> .env
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.SERVERLESS_AWS_ACCESS_KEY_ID }}
+    - run: echo 'AWS_SECRET_ACCESS_KEY=AWS_SECRET_ACCESS_KEY' >> .env
+      env:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.SERVERLESS_AWS_SECRET_ACCESS_KEY }}
+    - name: Serverless
+      uses: serverless/github-action@v1.53.0

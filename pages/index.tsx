@@ -169,7 +169,7 @@ const Home = ({recentUsers}) => {
 
     return (
         <main>
-            <Head title="Watcha Profile"/>
+            <Head title="Watcha Profile" ogImage={'https://watcha-profile.songyunseop.com/static/og-index.png'}/>
             <StyledContainer>
                 <div className="recentUsers">
                     <FilpMove typeName="ul">
