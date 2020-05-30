@@ -1,3 +1,10 @@
 {
-  "regions": ["icn1"]
+  "regions": ["icn1"],
+  "redirects": [
+    { "source": "/", "destination": "https://watcha-profile.songyunseop.com/", "permanent": true },
+    { "source": "/users/(.*)", "destination": "https://watcha-profile.songyunseop.com/users/$1", "permanent": true },
+    { "source": "/users/(.*)/movies", "destination": "https://watcha-profile.songyunseop.com/users/$1/movies", "permanent": true },
+    { "source": "/users/(.*)/tv_seasons", "destination": "https://watcha-profile.songyunseop.com/users/$1/tv_seasons", "permanent": true },
+    { "source": "/users/(.*)/books", "destination": "https://watcha-profile.songyunseop.com/users/$1/books", "permanent": true }
+  ]
 }
