@@ -1,0 +1,4 @@
+WatchaProfile:
+  component: serverless-next.js
+  inputs:
+    domain: ["watcha-profile", "songyunseop.com"]

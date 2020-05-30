@@ -1,14 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import Router from 'next/router'
+import React, {useCallback, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import {Error, Footer, Head, UserInfo} from '../../components';
-import Contents from "../../components/Contents";
+import {Error, Head, UserInfo} from '../../components';
 import users from '../../libs/watcha/users'
-import contents from '../../libs/watcha/contents'
 import AirbridgeWrapper from "../../libs/airbridge";
 import UserCache from "../../libs/cache";
 
-const User = ({query, userData, movies, tv_seasons, books}) => {
+const User = ({query, userData}) => {
     const userID = query.userID.toString();
     const [error, setError] = useState({active: false, type: 200});
 
@@ -27,27 +24,7 @@ const User = ({query, userData, movies, tv_seasons, books}) => {
             ) : (
                 <>
                     <Head title={`${userID ? `Watcha Profile | ${userID}` : 'Watcha Profile'}`}/>
-
                     {userData && <UserInfo userData={userData}/>}
-                    {movies && movies.action_count.ratings > 0 && <Contents
-                        contentType='movie'
-                        data={movies}
-                        onClickDetail={e => {
-                            Router.push({pathname: `/users/${userID}/movies`})
-                        }}/>}
-                    {tv_seasons && tv_seasons.action_count.ratings > 0 && <Contents
-                        contentType='tv'
-                        data={tv_seasons}
-                        onClickDetail={e => {
-                            Router.push({pathname: `/users/${userID}/tv_seasons`})
-                        }}/>}
-                    {books && books.action_count.ratings > 0 && <Contents
-                        contentType='book'
-                        data={books}
-                        onClickDetail={e => {
-                            Router.push({pathname: `/users/${userID}/books`})
-                        }}/>}
-                    <Footer/>
                 </>
             )}
         </main>
@@ -66,8 +43,5 @@ User.getInitialProps = async (props) => {
     const userData = await users(userID).then(res => res.json()).then(json => json.result)
     const userCache = UserCache.getInstance().cache
     userCache.set(userID, userData)
-    const movies = await contents.movies(userID).then(res => res.json()).then(json => json.result)
-    const tv_seasons = await contents.tv_seasons(userID).then(res => res.json()).then(json => json.result)
-    const books = await contents.books(userID).then(res => res.json()).then(json => json.result)
-    return {query, userData, movies, tv_seasons, books}
+    return {query, userData}
 }

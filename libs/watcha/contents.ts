@@ -3,7 +3,7 @@ import request from "./request";
 
 const movies = async (userID: string): Promise<Response> => await request(`${API_USERS}/${userID}/contents/movies`)
 
-const tv_seasons = async (userID: string): Promise<Response> => await request(`${API_USERS}/${userID}/contents/tv_seasons`)
+const tvSeasons = async (userID: string): Promise<Response> => await request(`${API_USERS}/${userID}/contents/tv_seasons`)
 
 const books = async (userID: string): Promise<Response> => await request(`${API_USERS}/${userID}/contents/books`)
 
@@ -50,4 +50,4 @@ const allBooks = async (userID: string) => {
         })
 }
 
-export default {movies, tv_seasons, books, allMovies, allTvSeasons, allBooks}
+export default {movies, tv_seasons: tvSeasons, books, allMovies, allTvSeasons, allBooks}

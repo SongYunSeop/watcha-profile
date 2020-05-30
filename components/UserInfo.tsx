@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import UserInfoStyles from './styles/UserInfoStyles';
-import {Section} from '../style';
 import Router from "next/router";
+import {Section} from "../style";
 
 const UserInfo = ({userData}) => (
-    <Section image>
+    <Section image style={{height: '100vh'}}>
         {userData && (
             <UserInfoStyles>
                 {userData.photo.small && (
@@ -36,6 +36,18 @@ const UserInfo = ({userData}) => (
                     }}>
                         <span className="num">{userData.action_counts.books.ratings}</span>
                         <span className="num-label">Books</span>
+                    </div>
+                    <div className="stats__item" onClick={() => {
+                        Router.push({pathname: `/users/${userData.code}/friends`,});
+                    }}>
+                        <span className="num">{userData.friends_count}</span>
+                        <span className="num-label">Friends</span>
+                    </div>
+                    <div className="stats__item" onClick={() => {
+                        Router.push({pathname: `/users/${userData.code}/followers`,});
+                    }}>
+                        <span className="num">{userData.follower_count}</span>
+                        <span className="num-label">Followers</span>
                     </div>
                 </div>
             </UserInfoStyles>

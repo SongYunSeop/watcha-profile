@@ -102,7 +102,6 @@ const Home = ({recentUsers}) => {
     const [searchPage, setSearchPage] = useState(1);
     const [searchResults, setSearchResults] = useState([]);
     const [error, setError] = useState({active: false, type: 200});
-    console.log(recentUsers)
 
     const onSelectUser = (code) => {
         AirbridgeWrapper.getInstance().sendEvent("SelectUser", {action: code})
@@ -134,7 +133,7 @@ const Home = ({recentUsers}) => {
 
     const handleDebounceInput = useCallback(_.debounce((value: string) => {
         setQuery(value);
-    }, 200), []);
+    }, 300), []);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         handleDebounceInput(e.target.value);
@@ -184,7 +183,7 @@ const Home = ({recentUsers}) => {
                 }}>
                     <label htmlFor="username">Make Your Watcha Profile</label>
                     <input name="search" type="text" onChange={handleSearch}
-                           placeholder={'영화중독자 or 영화탐험가 or Your Name!'}/>
+                           placeholder={'독서모임 중독자 or 영화탐험가 or Your Name!'}/>
                     {(query != "" && searchResults.length > 0) && (
                         <SearchResults
                             searchResults={searchResults}

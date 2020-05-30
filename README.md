@@ -4,7 +4,7 @@ Inspired by [@bchiang7/octoprofile](https://github.com/bchiang7/octoprofile)
 
 A nicer look at your Watcha Profile!
 
-[https://watcha-profile.now.sh/users/nb4xk0MPaqOAz](https://watcha-profile.now.sh/users/nb4xk0MPaqOAz)
+[https://watcha-profile.songyunseop.com/users/nb4xk0MPaqOAz](https://watcha-profile.songyunseop.com/users/nb4xk0MPaqOAz)
 
 ![demo](https://raw.githubusercontent.com/songyunseop/watcha-profile/master/public/static/og.png)
 
@@ -30,15 +30,15 @@ Built with:
 
 ## Deployment
 
-1. Install the Now CLI
+1. Install the serverless.js CLI
 
    ```bash
-   npm install -g now
+   npm install -g serverless
    ```
 
 2. Deploy!
 
    ```bash
-   now
+   serverless
    ```
 

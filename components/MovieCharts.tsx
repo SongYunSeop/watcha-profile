@@ -102,7 +102,7 @@ const MovieCharts = ({contentData}) => {
             .map((key) => ({label: key, value: sample[key]}))
             .sort((x, y) => (y["value"] - x["value"]))
             .slice(0, 5)
-        const labels = agg.map(repo => repo.label);
+        const labels = agg.map(repo => repo.label == '한국' ? `🇰🇷 ${repo.label}` : repo.label);
         const data = agg.map(repo => repo.value);
 
         if (data.length > 0) {

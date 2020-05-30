@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "pm2": "next build && pm2 start ./node_modules/next/dist/bin/next-start",
     "dev": "next dev",
     "build": "next build",
     "start": "next start"

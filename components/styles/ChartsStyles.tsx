@@ -5,13 +5,14 @@ const {colors} = theme;
 
 const ChartsStyles = styled.div`
   max-width: 1200px !important;
-  margin-top: -8rem !important;
+  margin-top: -20rem !important;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: 2rem;
   justify-content: center;
   ${media.bp900`
     justify-items: center;
+    margin-top: -14rem !important;
   `};
 
   .chart {

@@ -8,10 +8,7 @@ const UserInfoStyles = styled.div`
   flex-direction: column;
   margin-bottom: 30px;
   text-align: center;
-
-  ${media.bp600`
-    padding-top: 4rem;
-  `};
+   padding-top: 4rem;
 
   .avatar {
     ${mixins.flexCenter};
@@ -71,10 +68,14 @@ const UserInfoStyles = styled.div`
 
   .stats {
     display: grid;
-    grid-template-columns: repeat(3, minmax(100px, 150px));
+    grid-template-columns: repeat(5, minmax(100px, 150px));
     grid-gap: 0.5rem;
     justify-content: center;
     margin-top: 2rem;
+      ${media.bp900`
+        grid-template-columns: repeat(3, minmax(100px, 150px));
+        grid-gap: 0.1rem;
+      `};
 
     &__item {
       ${mixins.flexCenter};

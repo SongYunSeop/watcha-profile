@@ -40,7 +40,7 @@ const Contents = ({contentType, data, onClickDetail}) => {
                 <div className="content-list">
                     <ul>
                         {data.ratings.result.map(({content, user_content_action}) => renderContent(content, user_content_action))}
-                        <DummyContent onClick={onClickDetail} title='...more'/>
+                        <DummyContent key={"dummy"} onClick={onClickDetail} title='...more'/>
                     </ul>
                 </div>
             </ContentsStyles></Section>
