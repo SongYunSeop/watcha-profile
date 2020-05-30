@@ -6,6 +6,9 @@ import Corner from "../components/Corner";
 import Logo from "../components/Logo";
 import {NextComponentType, NextPageContext} from "next";
 import AirbridgeSDK from "../libs/airbridge/components/AirbridgeSDK";
+import * as Sentry from '@sentry/browser';
+
+Sentry.init({dsn: "https://7ef0a84797c840698504bb3d68d81b8f@o400408.ingest.sentry.io/5258829"});
 
 class _App extends App {
     static async getInitialProps({Component, ctx}: { Component: NextComponentType, ctx: NextPageContext }) {
@@ -16,6 +19,18 @@ class _App extends App {
         // exposes the query to the user
         pageProps["query"] = ctx.query
         return {pageProps}
+    }
+
+    componentDidCatch(error, errorInfo) {
+        Sentry.withScope((scope) => {
+            Object.keys(errorInfo).forEach((key) => {
+                scope.setExtra(key, errorInfo[key]);
+            });
+
+            Sentry.captureException(error);
+        });
+
+        super.componentDidCatch(error, errorInfo);
     }
 
     render() {
