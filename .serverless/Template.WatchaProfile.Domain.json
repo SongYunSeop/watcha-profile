@@ -1,0 +1,13 @@
+{
+  "region": "us-east-1",
+  "privateZone": false,
+  "domain": "songyunseop.com",
+  "subdomains": [
+    {
+      "domain": "watcha-profile.songyunseop.com",
+      "distributionId": "E370IKB0TZ94HF",
+      "url": "https://ds4r999b11gri.cloudfront.net",
+      "type": "awsCloudFront"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "25bb3-xv64zbs",
+  "hash": "6BZU32DyvSV1DsjUV/dhu9aYogpRxg+Dva53XEr1oO4=",
+  "description": "API Lambda@Edge for Next CloudFront distribution",
+  "memory": 512,
+  "timeout": 10,
+  "code": "/Users/yunseop/workspace/watcha-profile/.serverless_nextjs/api-lambda",
+  "shims": [],
+  "handler": "index.handler",
+  "runtime": "nodejs10.x",
+  "env": {},
+  "role": {
+    "arn": "arn:aws:iam::310666590044:role/25bb3-ij801kh"
+  },
+  "arn": "arn:aws:lambda:us-east-1:310666590044:function:25bb3-xv64zbs",
+  "region": "us-east-1"
+}
