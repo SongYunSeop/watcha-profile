@@ -10,6 +10,10 @@ const LongChartsStyles = styled.div`
     justify-items: center;
     margin-top: -14rem !important;
   `};
+  ${media.bp400`
+    justify-items: center;
+    margin-top: -8rem !important;
+  `};
 
   .chart {
     background-color: ${colors.white};

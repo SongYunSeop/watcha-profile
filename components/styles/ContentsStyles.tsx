@@ -24,7 +24,7 @@ const ContentsStyles = styled.div`
         .content {
           ${mixins.flexBetween};
           flex-direction: column;
-          padding: 2rem;
+          padding: 0.8rem 1.2rem ;
           height: 100%;
           color: ${colors.grey2};
           background-color: ${colors.white};
@@ -76,6 +76,7 @@ const ContentsStyles = styled.div`
           &__top {
             ${mixins.flexBetween};
             line-height: 34px;
+            padding: 3px 0px;
             
             &__title {
                 font-weight: 900;
@@ -92,6 +93,7 @@ const ContentsStyles = styled.div`
             ${mixins.flexBetween};
             font-size: 13px;
             color: ${colors.grey};
+            padding: 3px 0px;
             
             &__author {
                 font-weight: 700
@@ -103,12 +105,13 @@ const ContentsStyles = styled.div`
             font-size: 12px;
             font-weight: 700;
             color: ${colors.black};
-            
-            
-            svg {
-            }
+            padding-top: 3px;
             
             &__line {
+                ${mixins.flexBetween};
+                .MuiRating-root {
+                    top: -6px;
+                }
             }
 
           }
