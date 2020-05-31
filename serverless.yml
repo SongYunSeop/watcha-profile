@@ -2,3 +2,5 @@ WatchaProfile:
   component: serverless-next.js
   inputs:
     domain: ["watcha-profile", "songyunseop.com"]
+    bucketName: "watcha-profile"
+    name: "watcha-profile"
