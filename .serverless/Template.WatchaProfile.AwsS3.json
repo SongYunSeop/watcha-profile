@@ -1,0 +1,6 @@
+{
+  "name": "watcha-profile",
+  "region": "us-east-1",
+  "accelerated": true,
+  "url": "https://watcha-profile.s3.amazonaws.com"
+}

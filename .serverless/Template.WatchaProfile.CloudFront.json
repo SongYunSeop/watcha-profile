@@ -1,0 +1,49 @@
+{
+  "id": "E370IKB0TZ94HF",
+  "arn": "arn:aws:cloudfront::310666590044:distribution/E370IKB0TZ94HF",
+  "url": "https://ds4r999b11gri.cloudfront.net",
+  "region": "us-east-1",
+  "origins": [
+    {
+      "url": "http://watcha-profile.s3.amazonaws.com",
+      "private": true,
+      "pathPatterns": {
+        "_next/*": {
+          "ttl": 86400
+        },
+        "static/*": {
+          "ttl": 86400
+        },
+        "api/*": {
+          "ttl": 0,
+          "allowedHttpMethods": [
+            "HEAD",
+            "DELETE",
+            "POST",
+            "GET",
+            "OPTIONS",
+            "PUT",
+            "PATCH"
+          ],
+          "lambda@edge": {
+            "origin-request": "arn:aws:lambda:us-east-1:310666590044:function:25bb3-xv64zbs:1"
+          }
+        }
+      }
+    }
+  ],
+  "defaults": {
+    "ttl": 0,
+    "forward": {
+      "cookies": "all",
+      "queryString": true
+    },
+    "allowedHttpMethods": [
+      "HEAD",
+      "GET"
+    ],
+    "lambda@edge": {
+      "origin-request": "arn:aws:lambda:us-east-1:310666590044:function:25bb3-ze1300c:1"
+    }
+  }
+}
