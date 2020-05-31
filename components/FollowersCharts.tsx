@@ -3,7 +3,6 @@ import buildChart from '../libs/chart';
 import {Section, theme} from '../style';
 import {CircularProgress} from '@material-ui/core';
 import LongChartsStyles from "./styles/LongChartStyles";
-import StarIcon from "@material-ui/icons/Star";
 
 const {colors} = theme;
 
@@ -25,9 +24,9 @@ const FollowersCharts = ({userData, followersData}) => {
         return `rgba(0, ${((idx + 1) / length) * maxRGB}, 10, 1)`
     }
 
-    const [genreChartData, setGenreChartData] = useState(null);
-    const initGenreChart = () => {
-        const ctx = document.getElementById('genreChart');
+    const [ChartData, setChartData] = useState(null);
+    const initChart = () => {
+        const ctx = document.getElementById('Chart');
         const datasets = [
             {
                 label: userData.name,
@@ -56,7 +55,6 @@ const FollowersCharts = ({userData, followersData}) => {
         const hoverBackgroundColor = sortedData.map(x => x.hoverBackgroundColor)
         const hoverBorderColor = sortedData.map(x => x.hoverBorderColor)
 
-
         if (data.length > 0) {
             const chartType = 'bar';
             const axes = false;
@@ -77,16 +75,12 @@ const FollowersCharts = ({userData, followersData}) => {
         }
     };
 
-
     useEffect(() => {
         if (followersData.length) {
-            initGenreChart()
-            // initRatingChart()
-            // initCountryChart()
+            initChart()
         }
     }, [followersData]);
 
-    const chartSize = 1400;
     const chartWidth = 1200;
     const chartHeight = 700;
 
@@ -95,16 +89,14 @@ const FollowersCharts = ({userData, followersData}) => {
         <Section>
             <LongChartsStyles>
                 <div className="chart">
-                    <header><h2><StarIcon
-                        style={{color: colors.yellow}}/>Rating Count</h2></header>
+                    <header><h2>Ratings Count</h2></header>
                     <div className="chart-container">
                         {chartError && <p className="chart-progress"><CircularProgress/>
                             <div>Loading...</div>
                         </p>}
-                        <canvas id="genreChart" width={chartWidth} height={chartError ? 0 : chartHeight}/>
+                        <canvas id="Chart" width={chartWidth} height={chartError ? 0 : chartHeight}/>
                     </div>
                 </div>
-
             </LongChartsStyles>
         </Section>
     );

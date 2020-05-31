@@ -1,4 +1,4 @@
-import Airbridge, {initObject, UserObject, eventObject} from "./types";
+import Airbridge, {eventObject, initObject, UserObject} from "./types";
 
 declare global {
     interface Window {
