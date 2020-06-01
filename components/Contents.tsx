@@ -1,57 +1,35 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Section} from '../style';
 import ContentsStyles from './styles/ContentsStyles';
 import Content from "./Content";
 import DummyContent from "./DummyContent";
+import FilpMove from "react-flip-move";
 
-const Contents = ({contentType, data, onClickDetail}) => {
-    const sectionTitle = contentType == 'movie' ? 'Movies' : contentType == 'tv' ? 'Tv' : 'Books'
+const Contents = ({pageName, contentsData, onClickMore}) => {
 
-    const renderContent = (content, user_content_action) => {
-
-        let author: string
-        if (contentType == 'movie') {
-            author = content.director_names.join(', ')
-        } else if (contentType == 'tv') {
-            author = content.channel_name
-        } else {
-            author = content.author_names.join(', ')
-        }
-        return (
-            <li key={content.code.toString()}>
-                <Content
-                    key={content.code.toString()}
-                    code={content.code.toString()}
-                    imageUrl={content.poster.medium}
-                    title={content.title}
-                    author={author}
-                    year={content.year.toString()}
-                    avg_rating={(content.ratings_avg / 2).toFixed(1)}
-                    user_rating={(user_content_action.rating / 2).toFixed(1)}/>
-            </li>
-        )
+    const renderContents = () => {
+        return contentsData
+            .map((content) => (
+                <li key={content.code.toString()}>
+                    <Content {...content} />
+                </li>
+            ))
     }
 
     return (
         <Section>
             <ContentsStyles>
-                <header><h2>{sectionTitle}</h2></header>
+                <header><h2>{pageName}</h2></header>
                 <div className="content-list">
-                    <ul>
-                        {data.ratings.result.map(({content, user_content_action}) => renderContent(content, user_content_action))}
-                        <DummyContent key={"dummy"} onClick={onClickDetail} title='...more'/>
-                    </ul>
+                    <FilpMove typeName={"ul"}>
+                        {renderContents()}
+                        <DummyContent title={'...more'} onClick={onClickMore}/>
+                    </FilpMove>
                 </div>
-            </ContentsStyles></Section>
+            </ContentsStyles>
+        </Section>
     )
 
 }
-
-Contents.propTypes = {
-    data: PropTypes.object.isRequired,
-    contentType: PropTypes.string.isRequired,
-    onClickDetail: PropTypes.func.isRequired,
-};
 
 export default Contents
