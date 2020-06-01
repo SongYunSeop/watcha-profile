@@ -1,4 +1,5 @@
 # Watcha Profile
+![Deploy](https://github.com/SongYunSeop/watcha-profile/workflows/Deploy/badge.svg)
 
 Inspired by [@bchiang7/octoprofile](https://github.com/bchiang7/octoprofile)
 
