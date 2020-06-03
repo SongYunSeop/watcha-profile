@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Error, Head, UserInfo} from '../../../components';
 import {Section} from '../../../style';
 import users from "../../../libs/watcha/users";
@@ -9,6 +9,7 @@ import FollowersCharts from "../../../components/FollowersCharts";
 import User from "../../../components/User";
 import UsersStyles from "../../../components/styles/UsersStyles";
 import DummyUser from "../../../components/DummyUser";
+import _ from 'lodash'
 
 const Followers = ({query, userData}) => {
     const userID = query.userID.toString();
@@ -58,9 +59,22 @@ const Followers = ({query, userData}) => {
             ))
     }
 
+    const handleThrottledScroll = useCallback(_.throttle((offsetHeight: number, scrollTop: number, scrollHeight: number) => {
+        if (followers && followers.length > 0 && offsetHeight + scrollTop > scrollHeight - 80) {
+            setPage(page + 1)
+        }
+    }, 300), [followers, page]);
+
+
+    const handleScroll = (e: React.UIEvent<HTMLElement>) => {
+        const {offsetHeight, scrollTop, scrollHeight, className} = e.target as HTMLElement
+        if (className.indexOf("chartjs") < 0) {
+            handleThrottledScroll(offsetHeight, scrollTop, scrollHeight)
+        }
+    }
 
     return (
-        <main>
+        <main style={{height: '100vh', overflowY: "auto"}} onScroll={handleScroll}>
             {error && error.active ? (
                 <Error error={error}/>
             ) : (
