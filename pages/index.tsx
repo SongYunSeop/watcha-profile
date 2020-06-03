@@ -183,7 +183,7 @@ const Home = ({recentUsers}) => {
                 }}>
                     <label htmlFor="username">Make Your Watcha Profile</label>
                     <input name="search" type="text" onChange={handleSearch}
-                           placeholder={'독서모임 중독자 or 영화탐험가 or Your Name!'}/>
+                           placeholder={'이동진 평론가 or 물론들롱 or Your Name!'}/>
                     {(query != "" && searchResults.length > 0) && (
                         <SearchResults
                             searchResults={searchResults}
