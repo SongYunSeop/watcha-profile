@@ -13,7 +13,7 @@ const CornerStyles = styled.div`
       animation: octocat-wave 560ms ease-in-out;
     }
     svg {
-      fill: ${colors.blue};
+      fill: ${colors.black};
       color: ${colors.offWhite};
       .octo-arm {
         transform-origin: 130px 106px;

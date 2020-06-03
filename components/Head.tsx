@@ -11,15 +11,16 @@ const Head = props => (
         <meta charSet="UTF-8"/>
         <title>{props.title || defaultTitle}</title>
         <meta name="description" content={props.description || defaultDescription}/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name='viewport'
+              content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'/>
         <link rel="icon" href="/static/favicons/favicon.ico"/>
-        <link rel="apple-touch-icon" sizes="120x120" href="/static/favicons/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="120x120" href="/static/favicons/apple-icon.png"/>
         <link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png"/>
         <link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png"/>
         <link rel="manifest" href="/static/favicons/manifest.json"/>
         <link rel="mask-icon" href="/static/favicons/safari-pinned-tab.svg" color="#1A1E22"/>
         <meta name="msapplication-TileColor" content="#1A1E22"/>
-        <meta name="theme-color" content="#0070f3"/>
+        <meta name="theme-color" content="#e75377"/>
         <meta property="og:url" content={props.url || defaultOGURL}/>
         <meta property="og:title" content={props.title || defaultTitle}/>
         <meta property="og:description" content={props.description || defaultDescription}/>
@@ -33,6 +34,14 @@ const Head = props => (
         <meta property="og:image" content={props.ogImage || defaultOGImage}/>
         <meta property="og:image:width" content="1200"/>
         <meta property="og:image:height" content="630"/>
+
+        <meta name='application-name' content={props.title || defaultTitle}/>
+        <meta name='apple-mobile-web-app-capable' content='yes'/>
+        <meta name='apple-mobile-web-app-status-bar-style' content='default'/>
+        <meta name='apple-mobile-web-app-title' content={props.title || defaultTitle}/>
+        <meta name='format-detection' content='telephone=no'/>
+        <meta name='mobile-web-app-capable' content='yes'/>
+
     </NextHead>
 );
 
