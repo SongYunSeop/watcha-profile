@@ -12,7 +12,7 @@ const theme = {
         darkGrey: '#24292e',
         white: '#FFFFFF',
         yellow: '#FFDE36',
-        pink: '#e3618f',
+        pink: '#F92F8A',
     },
 
     fonts: {

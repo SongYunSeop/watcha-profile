@@ -39,9 +39,9 @@
       "density": "4.0"
     }
   ],
-  "theme_color": "#e75377",
-  "background_color": "#e75377",
-  "start_url": "/",
+  "theme_color": "#F92F8A",
+  "background_color": "#F92F8A",
+  "start_url": "/?utm_source=pwa",
   "display": "standalone",
   "orientation": "portrait"
 }
