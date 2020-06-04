@@ -19,6 +19,9 @@ const LongChartsStyles = styled.div`
     background-color: ${colors.white};
     padding: 2rem;
     border-radius: 0.25rem;
+    max-width: 1200px;
+    max-height: 600px;
+    margin: 0 auto;
     box-shadow: 0 5px 30px -15px rgba(0, 0, 0, 0.2);
     ${media.bp400`
       padding: 2rem 1rem;
