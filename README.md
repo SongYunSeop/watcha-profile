@@ -8,7 +8,7 @@ A nicer look at your Watcha Profile!
 
 [https://watcha-profile.songyunseop.com/users/nb4xk0MPaqOAz](https://watcha-profile.songyunseop.com/users/nb4xk0MPaqOAz)
 
-![demo](https://raw.githubusercontent.com/songyunseop/watcha-profile/master/public/static/og.png)
+![demo](https://raw.githubusercontent.com/songyunseop/watcha-profile/master/static/og.png)
 
 Built with:
 
