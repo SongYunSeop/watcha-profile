@@ -18,6 +18,7 @@ class _App extends App {
         }
         // exposes the query to the user
         pageProps["query"] = ctx.query
+        pageProps["pathname"] = ctx.pathname
         return {pageProps}
     }
 

@@ -5,7 +5,7 @@ import ContentsPage from "../../../components/ContentsPage";
 import BookCharts from "../../../components/BookCharts";
 import AirbridgeWrapper from "../../../libs/airbridge";
 
-const Books = ({query, userData}) => {
+const Books = ({query, pathname, userData}) => {
     const userID = query.userID.toString();
     const pageName = "Books"
     const pageURL = `https://watcha-profile.songyunseop.com/users/${userID}/books`
@@ -41,6 +41,7 @@ const Books = ({query, userData}) => {
 
     return <ContentsPage
         userData={userData}
+        pathname={pathname}
         page={page}
         contentsData={contentsData}
         error={error}
@@ -56,9 +57,10 @@ export default Books;
 
 Books.getInitialProps = async (props) => {
     const query = props.query
+    const pathname = props.pathname
     const userID = props.query.userID.toString();
     const userData = await users(userID).then(res => res.json()).then(json => json.result)
     const userCache = UserCache.getInstance().cache
     userCache.set(userID, userData)
-    return {query, userData}
+    return {query, pathname, userData}
 }
