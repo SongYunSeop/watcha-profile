@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import buildChart from '../libs/chart';
 import {Section, theme} from '../style';
 import {CircularProgress} from '@material-ui/core';
@@ -6,7 +6,7 @@ import LongChartsStyles from "./styles/LongChartStyles";
 
 const {colors} = theme;
 
-const FriendsCharts = ({userData, friendsData}) => {
+const FriendsCharts = ({userData, chartData}) => {
     const getBackgroundColor = (idx, length) => {
         const maxRGB = 255;
         return `rgba(0, ${((idx + 1) / length) * maxRGB}, 50, 0.7)`
@@ -24,7 +24,6 @@ const FriendsCharts = ({userData, friendsData}) => {
         return `rgba(0, ${((idx + 1) / length) * maxRGB}, 10, 1)`
     }
 
-    const [ChartData, setChartData] = useState(null);
     const initChart = () => {
         const ctx = document.getElementById('Chart');
         const datasets = [
@@ -36,24 +35,23 @@ const FriendsCharts = ({userData, friendsData}) => {
                 hoverBackgroundColor: 'rgba(255, 70, 100, 0.7)',
                 hoverBorderColor: 'rgba(255, 70, 100, 1)',
             },
-            ...friendsData.map((friend, i) => {
+            ...chartData.map((friend, i) => {
                 return {
                     label: friend.name,
                     data: friend.ratings_count,
-                    backgroundColor: getBackgroundColor(i, friendsData.length),
-                    borderColor: getBorderColor(i, friendsData.length),
-                    hoverBackgroundColor: getHoverBackgroundColor(i, friendsData.length),
-                    hoverBorderColor: getHoverBorderColor(i, friendsData.length)
+                    backgroundColor: getBackgroundColor(i, chartData.length),
+                    borderColor: getBorderColor(i, chartData.length),
+                    hoverBackgroundColor: getHoverBackgroundColor(i, chartData.length),
+                    hoverBorderColor: getHoverBorderColor(i, chartData.length)
                 }
-            })
-        ]
-        const sortedData = datasets.sort((x, y) => (x.data - y.data))
-        const labels = sortedData.map(x => x.label)
-        const data = sortedData.map(x => x.data)
-        const backgroundColor = sortedData.map(x => x.backgroundColor)
-        const borderColor = sortedData.map(x => x.borderColor)
-        const hoverBackgroundColor = sortedData.map(x => x.hoverBackgroundColor)
-        const hoverBorderColor = sortedData.map(x => x.hoverBorderColor)
+            }).sort((x, y) => (y.data - x.data)).slice(0, 100)
+        ].sort((x, y) => (y.data - x.data))
+        const labels = datasets.map(x => x.label)
+        const data = datasets.map(x => x.data)
+        const backgroundColor = datasets.map(x => x.backgroundColor)
+        const borderColor = datasets.map(x => x.borderColor)
+        const hoverBackgroundColor = datasets.map(x => x.hoverBackgroundColor)
+        const hoverBorderColor = datasets.map(x => x.hoverBorderColor)
 
         if (data.length > 0) {
             const chartType = 'bar';
@@ -76,20 +74,20 @@ const FriendsCharts = ({userData, friendsData}) => {
     };
 
     useEffect(() => {
-        if (friendsData.length) {
+        if (chartData.length) {
             initChart()
         }
-    }, [friendsData]);
+    }, [chartData]);
 
     const chartWidth = 800;
-    const chartHeight = 500;
+    const chartHeight = 300;
 
-    const chartError = !(friendsData && friendsData.length > 0);
+    const chartError = !(chartData && chartData.length > 0);
     return (
         <Section>
             <LongChartsStyles>
                 <div className="chart">
-                    <header><h2>Ratings Count</h2></header>
+                    <header><h2>Top 100 by Rating Count</h2></header>
                     <div className="chart-container">
                         {chartError && <p className="chart-progress"><CircularProgress/>
                             <div>Loading...</div>

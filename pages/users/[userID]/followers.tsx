@@ -82,7 +82,7 @@ const Followers = ({query, userData}) => {
                     <Head title={`${userData.name ? `Watcha Profile | ${userData.name}` : 'Watcha Profile'}`}
                           url={`https://watcha-profile.songyunseop.com/users/${userID}/followers`}/>
                     {userData && <UserInfo userData={userData}/>}
-                    {followers != null && <FollowersCharts userData={userData} followersData={followers}/>}
+                    {followers != null && <FollowersCharts userData={userData} chartData={followers.slice(0, 100)}/>}
                     {followers != null && followers.length > 0 &&
                     (
                         <Section>
