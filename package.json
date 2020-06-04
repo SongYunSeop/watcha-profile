@@ -17,6 +17,7 @@
     "chart.js": "^2.9.3",
     "lodash": "^4.17.15",
     "next": "9.4.0",
+    "next-pwa": "^2.5.0",
     "node-cache": "^5.1.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",

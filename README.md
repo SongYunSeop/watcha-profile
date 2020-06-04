@@ -1,5 +1,6 @@
 # Watcha Profile
 ![Deploy](https://github.com/SongYunSeop/watcha-profile/workflows/Deploy/badge.svg)
+![Build & Test](https://github.com/SongYunSeop/watcha-profile/workflows/Build%20&%20Test/badge.svg)
 
 Inspired by [@bchiang7/octoprofile](https://github.com/bchiang7/octoprofile)
 
@@ -7,7 +8,7 @@ A nicer look at your Watcha Profile!
 
 [https://watcha-profile.songyunseop.com/users/nb4xk0MPaqOAz](https://watcha-profile.songyunseop.com/users/nb4xk0MPaqOAz)
 
-![demo](https://raw.githubusercontent.com/songyunseop/watcha-profile/master/public/static/og.png)
+![demo](https://raw.githubusercontent.com/songyunseop/watcha-profile/master/static/og.png)
 
 Built with:
 
