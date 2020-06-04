@@ -11,7 +11,7 @@ import UsersStyles from "../../../components/styles/UsersStyles";
 import DummyUser from "../../../components/DummyUser";
 import _ from 'lodash'
 
-const Friends = ({query, userData}) => {
+const Friends = ({query, pathname, userData}) => {
     const userID = query.userID.toString();
     const [friends, setFriends] = useState([])
     const [page, setPage] = useState(1);
@@ -81,7 +81,7 @@ const Friends = ({query, userData}) => {
                 <>
                     <Head title={`${userData.name ? `Watcha Profile | ${userData.name}` : 'Watcha Profile'}`}
                           url={`https://watcha-profile.songyunseop.com/users/${userID}/friends`}/>
-                    {userData && <UserInfo userData={userData}/>}
+                    {userData && <UserInfo userData={userData} pathname={pathname}/>}
                     {friends != null && <FriendsCharts userData={userData} chartData={friends.slice(0, 100)}/>}
                     {friends != null && friends.length > 0 &&
                     (
@@ -110,6 +110,7 @@ export default Friends;
 
 Friends.getInitialProps = async (props) => {
     const query = props.query
+    const pathname = props.pathname
     const userID = props.query.userID.toString();
     const userCache = UserCache.getInstance().cache
     let userData;
@@ -119,5 +120,5 @@ Friends.getInitialProps = async (props) => {
         userData = await users(userID).then(res => res.json()).then(json => json.result)
         userCache.set(userID, userData)
     }
-    return {query, userData}
+    return {query, pathname, userData}
 }

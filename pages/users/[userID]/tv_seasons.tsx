@@ -5,7 +5,7 @@ import AirbridgeWrapper from "../../../libs/airbridge";
 import UserCache from "../../../libs/cache";
 import ContentsPage from "../../../components/ContentsPage";
 
-const TvSeasons = ({query, userData}) => {
+const TvSeasons = ({query, pathname, userData}) => {
     const userID = query.userID.toString();
     const pageName = "TvSeasons"
     const API_URI = `/api/users/${userID}/contents/tv_seasons`
@@ -41,6 +41,7 @@ const TvSeasons = ({query, userData}) => {
 
     return <ContentsPage
         userData={userData}
+        pathname={pathname}
         page={page}
         contentsData={contentsData}
         error={error}
@@ -56,9 +57,10 @@ export default TvSeasons;
 
 TvSeasons.getInitialProps = async (props) => {
     const query = props.query
+    const pathname = props.pathname
     const userID = props.query.userID.toString();
     const userData = await users(userID).then(res => res.json()).then(json => json.result)
     const userCache = UserCache.getInstance().cache
     userCache.set(userID, userData)
-    return {query, userData}
+    return {query, pathname, userData}
 }

@@ -209,3 +209,8 @@ fabric.properties
 .serverless_nextjs
 
 # End of https://www.gitignore.io/api/node,react,webstorm
+#
+sw.js
+sw.js.map
+workbox*.js
+workbox*.js.map

@@ -3,7 +3,7 @@ import {Error, Head, UserInfo} from '../components';
 import Contents from "../components/Contents";
 import _ from 'lodash'
 
-const ContentsPage = ({userData, page, contentsData, error, pageName, pageURL, ChartComponent, handleScrollCallback, handleClickMore}) => {
+const ContentsPage = ({userData, pathname, page, contentsData, error, pageName, pageURL, ChartComponent, handleScrollCallback, handleClickMore}) => {
     const pageSize = 9
     const pageIndex = page * pageSize
 
@@ -47,7 +47,7 @@ const ContentsPage = ({userData, page, contentsData, error, pageName, pageURL, C
                 <>
                     <Head title={`${userData.name ? `Watcha Profile | ${userData.name}` : 'Watcha Profile'}`}
                           url={pageURL}/>
-                    {userData && <UserInfo userData={userData}/>}
+                    {userData && <UserInfo userData={userData} pathname={pathname}/>}
                     {contentsData != null && contentsData.length > 0 && <ChartComponent contentData={contentsData}/>}
                     {contentsData != null && contentsData.length > 0 && (
                         <Contents

@@ -118,6 +118,15 @@ const UserInfoStyles = styled.div`
         }
       }
     }
+    
+    .current {
+        .num{
+          color: ${colors.pink}
+        }
+        .num-label { 
+          color: ${colors.pink}
+        }
+    }
   }
 `;
 
