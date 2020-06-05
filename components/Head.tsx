@@ -20,7 +20,7 @@ const Head = props => (
         <link rel="manifest" href="/static/favicons/manifest.json"/>
         <link rel="mask-icon" href="/static/favicons/safari-pinned-tab.svg" color="#F92F8A"/>
         <meta name="msapplication-TileColor" content="#F92F8A"/>
-        <meta name="theme-color" content="#F92F8A"/>
+        <meta name="theme-color" content="#1A1E22"/>
         <meta property="og:url" content={props.url || defaultOGURL}/>
         <meta property="og:title" content={props.title || defaultTitle}/>
         <meta property="og:description" content={props.description || defaultDescription}/>
