@@ -38,13 +38,13 @@ class _App extends App {
         const {Component, pageProps} = this.props;
         return (
             <ThemeProvider theme={theme}>
+                <script type="text/javascript" src="/static/js/airbridge.js"/>
                 <>
                     <GlobalStyle/>
                     <Logo/>
                     <Corner/>
                     <Component {...pageProps} />
                 </>
-                <script type="text/javascript" src="/static/js/airbridge.js"/>
                 <AirbridgeSDK app={"watchaprofile"} webToken={"1715f9b3f0714e06bb0b33afd4309f52"}/>
             </ThemeProvider>
         );

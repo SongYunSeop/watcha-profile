@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import UserInfoStyles from './styles/UserInfoStyles';
-import Router from "next/router";
 import {Section} from "../style";
+import Link from 'next/link'
+
 
 const UserInfo = ({userData, pathname}) => (
     <Section image style={{height: '100vh'}}>
@@ -19,38 +20,26 @@ const UserInfo = ({userData, pathname}) => (
                 {userData.bio && <h4>{userData.bio}</h4>}
 
                 <div className="stats">
-                    <div className={`stats__item ${pathname.indexOf('movies') > 0 ? 'current' : ''}`} onClick={() => {
-                        Router.push({pathname: `/users/${userData.code}/movies`,});
-                    }}>
+                    <a href={`/users/${userData.code}/movies`} className={`stats__item ${pathname.indexOf('movies') > 0 ? 'current' : ''}`}>
                         <span className="num">{userData.action_counts.movies.ratings}</span>
                         <span className="num-label">Movies</span>
-                    </div>
-                    <div className={`stats__item ${pathname.indexOf('tv_seasons') > 0 ? 'current' : ''}`}
-                         onClick={() => {
-                             Router.push({pathname: `/users/${userData.code}/tv_seasons`,});
-                         }}>
+                    </a>
+                    <a href={`/users/${userData.code}/tv_seasons`} className={`stats__item ${pathname.indexOf('tv_seasons') > 0 ? 'current' : ''}`}>
                         <span className="num">{userData.action_counts.tv_seasons.ratings}</span>
                         <span className="num-label">TV</span>
-                    </div>
-                    <div className={`stats__item ${pathname.indexOf('books') > 0 ? 'current' : ''}`} onClick={() => {
-                        Router.push({pathname: `/users/${userData.code}/books`,});
-                    }}>
+                    </a>
+                    <a href={`/users/${userData.code}/books`} className={`stats__item ${pathname.indexOf('books') > 0 ? 'current' : ''}`}>
                         <span className="num">{userData.action_counts.books.ratings}</span>
                         <span className="num-label">Books</span>
-                    </div>
-                    <div className={`stats__item ${pathname.indexOf('friends') > 0 ? 'current' : ''}`} onClick={() => {
-                        Router.push({pathname: `/users/${userData.code}/friends`,});
-                    }}>
+                    </a>
+                    <a href={`/users/${userData.code}/friends`} className={`stats__item ${pathname.indexOf('friends') > 0 ? 'current' : ''}`}>
                         <span className="num">{userData.friends_count}</span>
                         <span className="num-label">Friends</span>
-                    </div>
-                    <div className={`stats__item ${pathname.indexOf('followers') > 0 ? 'current' : ''}`}
-                         onClick={() => {
-                             Router.push({pathname: `/users/${userData.code}/followers`,});
-                         }}>
+                    </a>
+                    <a href={`/users/${userData.code}/followers`} className={`stats__item ${pathname.indexOf('followers') > 0 ? 'current' : ''}`}>
                         <span className="num">{userData.follower_count}</span>
                         <span className="num-label">Followers</span>
-                    </div>
+                    </a>
                 </div>
             </UserInfoStyles>
         )}

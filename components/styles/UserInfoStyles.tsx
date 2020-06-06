@@ -45,7 +45,7 @@ const UserInfoStyles = styled.div`
     color: ${colors.lightestBlue};
     &:hover,
     &:focus {
-      text-decoration: underline;
+      text-decoration: none;
     }
   }
 
