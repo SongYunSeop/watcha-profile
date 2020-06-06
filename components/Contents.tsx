@@ -5,12 +5,14 @@ import Content from "./Content";
 import DummyContent from "./DummyContent";
 import FilpMove from "react-flip-move";
 
-const Contents = ({pageName, contentsData, onClickMore}) => {
+const Contents = ({pageName, contentsData, onClickMore, onClickContent}) => {
 
     const renderContents = () => {
         return contentsData
             .map((content) => (
-                <li key={content.code.toString()}>
+                <li key={content.code.toString()} onClick={e => {
+                    onClickContent(content.code)
+                }}>
                     <Content {...content} />
                 </li>
             ))

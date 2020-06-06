@@ -32,8 +32,9 @@ const ContentsStyles = styled.div`
           box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.2);
           transition: all 200ms cubic-bezier(0.23, 1, 0.32, 1) 0s;
           ${media.bp600`
-            padding: 1.5rem;
+            padding: 0.5rem;
           `};
+          cursor: pointer;
 
           &:hover,
           &:focus {
