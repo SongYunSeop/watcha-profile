@@ -45,7 +45,7 @@ const FollowersCharts = ({userData, chartData}) => {
                     hoverBorderColor: getHoverBorderColor(i, chartData.length)
                 }
             }).sort((x, y) => (y.data - x.data)).slice(0, 100)
-        ].sort((x, y) => (y.data - y.data))
+        ].sort((x, y) => (y.data - x.data))
         const labels = datasets.map(x => x.label)
         const data = datasets.map(x => x.data)
         const backgroundColor = datasets.map(x => x.backgroundColor)
