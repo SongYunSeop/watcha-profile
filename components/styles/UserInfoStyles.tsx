@@ -8,7 +8,7 @@ const UserInfoStyles = styled.div`
   flex-direction: column;
   margin-bottom: 30px;
   text-align: center;
-   padding-top: 4rem;
+  padding-top: 4rem;
 
   .avatar {
     ${mixins.flexCenter};
@@ -120,12 +120,12 @@ const UserInfoStyles = styled.div`
     }
     
     .current {
-        .num{
-          color: ${colors.pink}
-        }
-        .num-label { 
-          color: ${colors.pink}
-        }
+      .num{
+        color: ${colors.pink}
+      }
+      .num-label { 
+        color: ${colors.pink}
+      }
     }
   }
 `;

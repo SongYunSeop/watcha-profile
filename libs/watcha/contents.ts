@@ -1,53 +1,55 @@
-import {API_USERS} from './constatns';
+import {API_USERS, API_CONTENTS} from './constatns';
 import request from "./request";
 
-const movies = async (userID: string): Promise<Response> => await request(`${API_USERS}/${userID}/contents/movies`)
+const contents = async (code: string): Promise<Response> => await request(`${API_CONTENTS}/${code}`)
 
-const tvSeasons = async (userID: string): Promise<Response> => await request(`${API_USERS}/${userID}/contents/tv_seasons`)
+contents.movies = async (userID: string): Promise<Response> => await request(`${API_USERS}/${userID}/contents/movies`)
 
-const books = async (userID: string): Promise<Response> => await request(`${API_USERS}/${userID}/contents/books`)
+contents.tvSeasons = async (userID: string): Promise<Response> => await request(`${API_USERS}/${userID}/contents/tv_seasons`)
 
-const movieRating = async (userID: string, page: number): Promise<Response> => await request(`${API_USERS}/${userID}/contents/movies/ratings?page=${page}&size=20`).then(res => res.json())
+contents.books = async (userID: string): Promise<Response> => await request(`${API_USERS}/${userID}/contents/books`)
 
-const tvSeasonRating = async (userID: string, page: number): Promise<Response> => await request(`${API_USERS}/${userID}/contents/tv_seasons/ratings?page=${page}&size=20`).then(res => res.json())
+contents.movieRating = async (userID: string, page: number): Promise<Response> => await request(`${API_USERS}/${userID}/contents/movies/ratings?page=${page}&size=20`).then(res => res.json())
 
-const bookRating = async (userID: string, page: number): Promise<Response> => await request(`${API_USERS}/${userID}/contents/books/ratings?page=${page}&size=20`).then(res => res.json())
+contents.tvSeasonRating = async (userID: string, page: number): Promise<Response> => await request(`${API_USERS}/${userID}/contents/tv_seasons/ratings?page=${page}&size=20`).then(res => res.json())
 
-const allMovies = async (userID: string) => {
+contents.bookRating = async (userID: string, page: number): Promise<Response> => await request(`${API_USERS}/${userID}/contents/books/ratings?page=${page}&size=20`).then(res => res.json())
+
+contents.allMovies = async (userID: string) => {
     const maxSize = 20
-    return await movies(userID)
+    return await contents.movies(userID)
         .then(res => res.json())
         .then(json => Math.ceil(json.result.action_count.ratings / maxSize))
         .then(count => {
             return Promise.all(
-                Array.apply(null, Array(count)).map((i, page) => movieRating(userID, page + 1))
+                Array.apply(null, Array(count)).map((i, page) => contents.movieRating(userID, page + 1))
             )
         })
 }
 
-const allTvSeasons = async (userID: string) => {
+contents.allTvSeasons = async (userID: string) => {
     const maxSize = 20
-    return await movies(userID)
+    return await contents.tvSeasons(userID)
         .then(res => res.json())
         .then(json => Math.ceil(json.result.action_count.ratings / maxSize))
         .then(count => {
             return Promise.all(
-                Array.apply(null, Array(count)).map((i, page) => tvSeasonRating(userID, page + 1))
+                Array.apply(null, Array(count)).map((i, page) => contents.tvSeasonRating(userID, page + 1))
             )
         })
 }
 
 
-const allBooks = async (userID: string) => {
+contents.allBooks = async (userID: string) => {
     const maxSize = 20
-    return await books(userID)
+    return await contents.books(userID)
         .then(res => res.json())
         .then(json => Math.ceil(json.result.action_count.ratings / maxSize))
         .then(count => {
             return Promise.all(
-                Array.apply(null, Array(count)).map((i, page) => bookRating(userID, page + 1))
+                Array.apply(null, Array(count)).map((i, page) => contents.bookRating(userID, page + 1))
             )
         })
 }
 
-export default {movies, tv_seasons: tvSeasons, books, allMovies, allTvSeasons, allBooks}
+export default contents

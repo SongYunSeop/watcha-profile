@@ -39,7 +39,7 @@
       "density": "4.0"
     }
   ],
-  "theme_color": "#F92F8A",
+  "theme_color": "#1A1E22",
   "background_color": "#F92F8A",
   "start_url": "/?utm_source=pwa",
   "display": "standalone",

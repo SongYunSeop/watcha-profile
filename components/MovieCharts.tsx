@@ -29,12 +29,12 @@ const borderColor = [
     'rgba(166,255,64,1)',
 ];
 
-const MovieCharts = ({contentData}) => {
+const MovieCharts = ({contentsData}) => {
 
     const [genreChartData, setGenreChartData] = useState(null);
     const initGenreChart = () => {
         const ctx = document.getElementById('genreChart');
-        const sample = contentData
+        const sample = contentsData
             .reduce((x, {content, user_content_action}) => {
                 return x.concat(content.genres)
             }, [])
@@ -66,7 +66,7 @@ const MovieCharts = ({contentData}) => {
     const [ratingChartData, setRatingChartData] = useState(null);
     const initRatingChart = () => {
         const ctx = document.getElementById('ratingChart');
-        const mostStarredRepos = contentData
+        const mostStarredRepos = contentsData
             .sort((a, b) => b.user_content_action.rating - a.user_content_action.rating)
         const labels = [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]
         let data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -86,7 +86,7 @@ const MovieCharts = ({contentData}) => {
     const [countryChartData, setCountryChartData] = useState(null);
     const initCountryChart = () => {
         const ctx = document.getElementById('countryChart');
-        const sample = contentData
+        const sample = contentsData
             .reduce((x, {content, user_content_action}) => {
                 return x.concat(content.nations)
             }, [])
@@ -116,15 +116,15 @@ const MovieCharts = ({contentData}) => {
 
 
     useEffect(() => {
-        if (contentData.length) {
+        if (contentsData.length) {
             initGenreChart()
             initRatingChart()
             initCountryChart()
         }
-    }, [contentData]);
+    }, [contentsData]);
 
     const chartSize = 300;
-    const chartError = !(contentData && contentData.length > 0);
+    const chartError = !(contentsData && contentsData.length > 0);
     return (
         <Section>
             <ChartsStyles>

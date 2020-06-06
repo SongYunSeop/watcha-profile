@@ -5,11 +5,7 @@ import {theme} from '../style';
 const {colors} = theme;
 
 const Content = ({code, imageUrl, title, author, year, avg_rating, user_rating}) => (
-    <a
-        href={`https://watcha.com/ko-KR/contents/${code}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="content">
+    <div className="content">
         <div className="movie__poster">
             <img src={imageUrl} alt={`${title} Poster`}/>
         </div>
@@ -30,6 +26,6 @@ const Content = ({code, imageUrl, title, author, year, avg_rating, user_rating})
                                                        readOnly style={{color: colors.yellow}}/>
             </div>
         </div>
-    </a>
+    </div>
 )
 export default Content;

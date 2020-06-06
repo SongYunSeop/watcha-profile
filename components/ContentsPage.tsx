@@ -1,11 +1,23 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import {Error, Head, UserInfo} from '../components';
 import Contents from "../components/Contents";
+import ContentDetail from "./ContentDetail";
 import _ from 'lodash'
+
 
 const ContentsPage = ({userData, pathname, page, contentsData, error, pageName, pageURL, ChartComponent, handleScrollCallback, handleClickMore}) => {
     const pageSize = 9
     const pageIndex = page * pageSize
+    const [modalData, setModalData] = useState(null)
+    const [modalIsOpen, setIsOpen] = useState(true);
+
+    const openModal = () => {
+        setIsOpen(true);
+    }
+    const closeModal = () => {
+        setIsOpen(false);
+    }
+
 
     const handleThrottledScroll = useCallback(_.throttle((offsetHeight: number, scrollTop: number, scrollHeight: number) => {
         if (contentsData && contentsData.length > 0 && offsetHeight + scrollTop > scrollHeight - 80) {
@@ -39,6 +51,16 @@ const ContentsPage = ({userData, pathname, page, contentsData, error, pageName, 
                 }
             )
     }
+
+    const fetchContentData = (code) => {
+        fetch(`/api/contents/${code}`)
+            .then(res => res.json())
+            .then(json => {
+                setModalData(json)
+                openModal()
+            })
+    }
+
     return (
         <main style={{height: '100vh', overflowY: "auto"}} onScroll={handleScroll}>
             {error && error.active ? (
@@ -48,13 +70,16 @@ const ContentsPage = ({userData, pathname, page, contentsData, error, pageName, 
                     <Head title={`${userData.name ? `Watcha Profile | ${userData.name}` : 'Watcha Profile'}`}
                           url={pageURL}/>
                     {userData && <UserInfo userData={userData} pathname={pathname}/>}
-                    {contentsData != null && contentsData.length > 0 && <ChartComponent contentData={contentsData}/>}
-                    {contentsData != null && contentsData.length > 0 && (
-                        <Contents
-                            pageName={pageName}
-                            contentsData={getCurrentContents()}
-                            onClickMore={handleClickMore}/>
-                    )}
+                    {contentsData != null && contentsData.length > 0 && <ChartComponent contentsData={contentsData}/>}
+                    {contentsData != null && contentsData.length > 0 && <Contents
+                        pageName={pageName}
+                        contentsData={getCurrentContents()}
+                        onClickMore={handleClickMore}
+                        onClickContent={fetchContentData}
+                    />
+                    }
+                    {modalData &&
+                    <ContentDetail isOpen={modalIsOpen} closeModal={closeModal} contentDetailData={modalData}/>}
                 </>
             )}
         </main>
