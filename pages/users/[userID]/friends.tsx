@@ -41,7 +41,6 @@ const Friends = ({query, pathname, userData}) => {
         })
     }, []);
 
-
     const renderFriends = () => {
         const pageSize = 9
         const pageIndex = page * pageSize

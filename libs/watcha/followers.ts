@@ -6,10 +6,11 @@ const followers = async (userID: string, page: number = 1): Promise<Response> =>
 
 followers.allFollowers = async (userID: string) => {
     const maxSize = 20
+    const maxPage = 100
 
     return await users(userID)
         .then(res => res.json())
-        .then(json => Math.ceil(json.result.follower_count / maxSize))
+        .then(json => Math.min(Math.ceil(json.result.follower_count / maxSize), maxPage))
         .then(count => {
             return Promise.all(
                 Array.apply(null, Array(count)).map((i, page) => followers(userID, page + 1))
