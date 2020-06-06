@@ -41,7 +41,6 @@ const Followers = ({query, pathname, userData}) => {
         })
     }, []);
 
-
     const renderFollowers = () => {
         const pageSize = 9
         const pageIndex = page * pageSize
