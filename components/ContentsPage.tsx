@@ -39,11 +39,11 @@ const ContentsPage = ({userData, pathname, page, contentsData, error, pageName, 
             .map(({content, user_content_action}) => {
                     const author = pageName == "Movies" ? content.director_names.join(', ') : (pageName == "Books" ? content.author_names.join(', ') : content.channel_name)
                     return {
-                        code: content.code.toString(),
+                        code: content.code?.toString(),
                         imageUrl: content.poster.large,
                         title: content.title,
                         author: author,
-                        year: content.year.toString(),
+                        year: content.year?.toString(),
                         avg_rating: (content.ratings_avg / 2).toFixed(1),
                         user_rating: (user_content_action.rating / 2).toFixed(1)
                     }
