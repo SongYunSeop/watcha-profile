@@ -1,15 +1,14 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Error, Head, UserInfo} from '../../../components';
 import {Section} from '../../../style';
-import users from "../../../libs/watcha/users";
 import AirbridgeWrapper from "../../../libs/airbridge";
 import FilpMove from 'react-flip-move'
-import UserCache from "../../../libs/cache";
 import FriendsCharts from "../../../components/FriendsCharts";
 import User from "../../../components/User";
 import UsersStyles from "../../../components/styles/UsersStyles";
 import DummyUser from "../../../components/DummyUser";
 import _ from 'lodash'
+import getUserInfo from "../../../libs/watchaProfile/users";
 
 const Friends = ({query, pathname, userData}) => {
     const userID = query.userID.toString();
@@ -111,13 +110,6 @@ Friends.getInitialProps = async (props) => {
     const query = props.query
     const pathname = props.pathname
     const userID = props.query.userID.toString();
-    const userCache = UserCache.getInstance().cache
-    let userData;
-    if (userCache.has(userID)) {
-        userData = userCache.get(userID)
-    } else {
-        userData = await users(userID).then(res => res.json()).then(json => json.result)
-        userCache.set(userID, userData)
-    }
+    const userData = await getUserInfo(userID)
     return {query, pathname, userData}
 }
