@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {Error, Head, UserInfo} from '../../components';
-import users from '../../libs/watcha/users'
 import AirbridgeWrapper from "../../libs/airbridge";
-import UserCache from "../../libs/cache";
+import getUserInfo from "../../libs/watchaProfile/users";
 
 const User = ({query, pathname, userData}) => {
     const userID = query.userID.toString();
@@ -42,8 +41,6 @@ User.getInitialProps = async (props) => {
     const query = props.query
     const pathname = props.pathname
     const userID = props.query.userID.toString();
-    const userData = await users(userID).then(res => res.json()).then(json => json.result)
-    const userCache = UserCache.getInstance().cache
-    userCache.set(userID, userData)
+    const userData = await getUserInfo(userID)
     return {query, pathname, userData}
 }

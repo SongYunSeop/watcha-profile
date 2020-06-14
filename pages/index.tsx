@@ -2,13 +2,12 @@ import React, {useCallback, useEffect, useState} from 'react';
 import Router from 'next/router';
 import {Head} from '../components';
 import styled from 'styled-components';
-import {mixins, theme} from '../style';
+import {media, mixins, theme} from '../style';
 import SearchResults from "../components/SearchResults";
 import _ from 'lodash'
 import AirbridgeWrapper from "../libs/airbridge";
-import UserCache from "../libs/cache";
 import FilpMove from 'react-flip-move'
-import StarIcon from "@material-ui/icons/Star";
+import getRecentUser from "../libs/watchaProfile/users/recentUsers";
 
 const {colors, fonts} = theme;
 
@@ -24,41 +23,46 @@ const StyledContainer = styled.div`
   .recentUsers {
     max-width: calc(100% - 200px);
     margin: 0 auto;
+    overflow-x: scroll;
+    padding-bottom: 12px;
+    ${media.bp600`
+      max-width: calc(100% - 20px);
+    `};
     
     ul {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1em));
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1em));
         grid-gap: 1rem;
     }
 
     .user {
-        ${mixins.flexCenter};
         background: ${colors.offWhite};
         color: ${colors.darkGrey};
         border-radius: 0.25rem;
-        padding: 2px;
-        text-align: center;
+        padding: 4px;
         font-size: 0.9em;
-        flex-direction: column;
-        width: 120px;
+        width: 200px;
         cursor: pointer;
+        ${mixins.flexCenter};
 
         &__avatar {
-            ${mixins.flexCenter};
             border-radius: 100%;
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            max-width: 40px;
+            height: 40px;
             background-size: cover;
             background-repeat: no-repeat;
             margin-right: 4px;
         }
         &__name {
             font-weight: 700;
-            font-size: 1.2em;
+            max-width: calc( 100% - 50px);
+            ${mixins.ellipsis};
+            line-height: 40px;
         }
-        &__rating {
-            font-weight: 500;
-        }
+        //&__rating { font-weight: 500;
+        //    font-size: 0.8em;
+        //}
     }
   }
 
@@ -155,12 +159,13 @@ const Home = ({recentUsers}) => {
     const renderRecentUsers = () => {
         return recentUsers.map(user => {
             return (
-                <li>
-                    <a href={`/users/${user.code}`} className="user">
-                        <span className="user__avatar" style={{backgroundImage: `url(${user.photo.small})`}}/>
-                        <span className="user__name">{user.name}</span>
-                        <span className="user__rating"><StarIcon
-                            style={{color: colors.yellow}}/>{user.ratings_count}</span>
+                <li key={user.code}>
+                    <a href={`/users/${user.code}`}>
+                        <div className="user">
+                            <span className="user__avatar" style={{backgroundImage: `url(${user.photo.small})`}}/>
+                            <span className="user__name">{user.name}</span>
+                        </div>
+                        {/*<span className="user__rating"><StarIcon style={{color: colors.yellow}}/>{user.ratings_count}</span>*/}
                     </a>
                 </li>
             )
@@ -198,8 +203,7 @@ const Home = ({recentUsers}) => {
 export default Home;
 
 Home.getInitialProps = async (props) => {
-    const userCache = UserCache.getInstance().cache
-    const keys = userCache.keys()
-    const recentUsers = keys.length > 0 ? Object.values(userCache.mget(keys)) : []
+    const recentUsers = await getRecentUser()
+
     return {recentUsers}
 }
