@@ -1910,6 +1910,11 @@
     "@sentry/types" "5.15.5"
     tslib "^1.9.3"
 
+"@sls-next/next-aws-cloudfront@^1.4.0-alpha.1":
+  version "1.4.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/@sls-next/next-aws-cloudfront/-/next-aws-cloudfront-1.4.0-alpha.1.tgz#0f8c9b34981b0bfed680d5e83e0fc8b7d31ad903"
+  integrity sha512-vNZDsO5WaZOTAFPkpm0qfGBOEpIPUXlx+Us+MEZ5+6RJ44UsRidhTijosoLcLQUSQfAXfh6wv8Cl/2D3su4cmQ==
+
 "@surma/rollup-plugin-off-main-thread@^1.1.1":
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/@surma/rollup-plugin-off-main-thread/-/rollup-plugin-off-main-thread-1.4.1.tgz#bf1343e5a926e5a1da55e3affd761dda4ce143ef"
