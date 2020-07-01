@@ -176,19 +176,19 @@ const Home = ({recentUsers}) => {
         <main>
             <Head title="Watcha Profile" ogImage={'https://watcha-profile.songyunseop.com/static/og-index.png'}/>
             <StyledContainer>
-                <div className="recentUsers">
-                    <FilpMove typeName="ul">
-                        {recentUsers && recentUsers.length > 0 && (
+                {recentUsers && recentUsers.length > 0 && (
+                    <div className="recentUsers">
+                        <FilpMove typeName="ul">
                             renderRecentUsers()
-                        )}
-                    </FilpMove>
-                </div>
+                        </FilpMove>
+                    </div>
+                )}
                 <form onSubmit={e => {
                     e.preventDefault()
                 }}>
                     <label htmlFor="username">Make Your Watcha Profile</label>
                     <input name="search" type="text" onChange={handleSearch}
-                           placeholder={'이동진 평론가 or 물론들롱 or Your Name!'}/>
+                           placeholder={'이동진 평론가 or 전지적 송윤섭시점 왓챠 or Your Name!'}/>
                     {(query != "" && searchResults.length > 0) && (
                         <SearchResults
                             searchResults={searchResults}
