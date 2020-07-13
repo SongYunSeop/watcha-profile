@@ -12,11 +12,14 @@ const getBooks = async (userID) => {
     if (booksData === undefined || booksData === null) {
         booksData = await contents
             .allBooks(userID)
-            .then((responses) => responses
-                .flatMap(json => json["result"].result)
-                .sort((x, y) => {
-                    return y["user_content_action"].rating - x["user_content_action"].rating;
-                }))
+            .then((responses) => {
+                console.log(responses)
+                return responses
+                    .flatMap(json => json["result"].result)
+                    .sort((x, y) => {
+                        return y["user_content_action"].rating - x["user_content_action"].rating;
+                    })
+            })
         await S3CacheService.set('watcha-profile', cacheKey, booksData)
     }
     return booksData
