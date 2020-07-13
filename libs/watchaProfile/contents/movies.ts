@@ -12,11 +12,12 @@ const getMovies = async (userID) => {
     if (moviesData === undefined || moviesData === null) {
         moviesData = await contents
             .allMovies(userID)
-            .then((responses) => responses
+            .then(async (responses) => await responses
                 .flatMap(json => json["result"].result)
                 .sort((x, y) => {
                     return y["user_content_action"].rating - x["user_content_action"].rating;
-                }))
+                })
+            )
         await S3CacheService.set('watcha-profile', cacheKey, moviesData)
     }
     return moviesData;
