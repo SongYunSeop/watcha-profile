@@ -1,6 +1,12 @@
 WatchaProfile:
-  component: "serverless-next.js@1.9.5"
+  component: "serverless-next.js@1.15.1"
   inputs:
     domain: ["watcha-profile", "songyunseop.com"]
     bucketName: "watcha-profile"
     name: "watcha-profile"
+    runtime:
+      defaultLambda: "nodejs12.x"
+      apiLambda: "nodejs12.x"
+    name:
+      defaultLambda: DefaultWatchaProfile
+      apiLambda: ApiWatchaProfile
