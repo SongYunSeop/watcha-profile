@@ -3,7 +3,6 @@ WatchaProfile:
   inputs:
     domain: ["watcha-profile", "songyunseop.com"]
     bucketName: "watcha-profile"
-    name: "watcha-profile"
     runtime:
       defaultLambda: "nodejs12.x"
       apiLambda: "nodejs12.x"
