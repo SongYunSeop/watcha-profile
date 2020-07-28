@@ -1,5 +1,5 @@
 WatchaProfile:
-  component: "serverless-next.js"
+  component: "@sls-next/serverless-component@1.15.1"
   inputs:
     domain: ["watcha-profile", "songyunseop.com"]
     bucketName: "watcha-profile"
