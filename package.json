@@ -16,7 +16,7 @@
     "@sls-next/next-aws-cloudfront": "^1.4.0-alpha.1",
     "aws-sdk": "^2.691.0",
     "chart.js": "^2.9.3",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "next": "9.4.0",
     "next-pwa": "^2.5.0",
     "node-cache": "^5.1.0",
