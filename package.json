@@ -14,7 +14,7 @@
     "@material-ui/lab": "^4.0.0-alpha.53",
     "@sentry/browser": "^5.15.5",
     "@sls-next/next-aws-cloudfront": "^1.4.0-alpha.1",
-    "aws-sdk": "^2.691.0",
+    "aws-sdk": "^2.814.0",
     "chart.js": "^2.9.3",
     "lodash": "^4.17.19",
     "next": "9.4.0",
